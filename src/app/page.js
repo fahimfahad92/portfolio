@@ -15,14 +15,24 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <div className='absolute flex flex-col gap-5 items-center w-full min-h-full bg-[url("/bg.jpg")]'>
+      <div className="absolute flex flex-col items-center gap-5 w-full min-h-full bg-cover bg-center bg-[url('/bg.jpg')] p-5">
+        {/* Profile Image */}
         <ProfileImageComponent />
-        <div className="p-2">
-          <h1>Sayed MD Fahim Fahad</h1>
-        </div>
-        <h2 className="pb-5">Software Engineer @ Toptal</h2>
 
-        <div className="flex flex-row space-x-6">
+        {/* Name Section */}
+        <div className="p-2 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">
+            Sayed MD Fahim Fahad
+          </h1>
+        </div>
+
+        {/* Title */}
+        <h2 className="pb-5 text-lg sm:text-xl md:text-2xl font-medium text-black">
+          Software Engineer @ Toptal
+        </h2>
+
+        {/* Icon Section */}
+        <div className="flex flex-wrap justify-center gap-4">
           <JavaIcon size="50" />
           <SpringBootIcon size="50" />
           <AwsIcon size="50" />
