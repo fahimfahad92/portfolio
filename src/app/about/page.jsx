@@ -1,10 +1,9 @@
-import SocialIconsComponent from "../components/icons/icon-component";
 import ProfileImageComponent from "../components/profile-component";
 
 export default function AboutMePage() {
   return (
     <>
-      <div className="flex items-center justify-center pt-20">
+      <div className="flex items-center justify-center pt-20 pb-20">
         <div className="grid grid-cols-4 bg-gray-200 p-6 mx-40 rounded shadow">
           <div className="col-span-1 flex justify-center items-center">
             <div>
