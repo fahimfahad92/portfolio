@@ -4,6 +4,11 @@ import GrowthDay from "./growthday/growthday-overview";
 import TigerIT from "./tigerit/tigerit-overview";
 import Toptal from "./toptal/toptal-overview";
 
+export const metadata = {
+  title: "Experience",
+  description: "Fahim Fahad",
+};
+
 export default function ExperiencePage() {
   return (
     <>

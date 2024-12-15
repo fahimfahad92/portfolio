@@ -1,5 +1,10 @@
 import { promises as fs } from "fs";
 
+export const metadata = {
+  title: "Skills",
+  description: "Fahim Fahad",
+};
+
 export default async function SkillsPage() {
   const file = await fs.readFile(
     process.cwd() + "/src/app/skills/skill-data.json",

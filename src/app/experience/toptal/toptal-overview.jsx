@@ -16,7 +16,10 @@ export default function Toptal() {
         <div className="pt-3">Primary Tech stack</div>
         <div className="space-x-2">
           {techStack.map((tech) => (
-            <div className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm">
+            <div
+              key={tech}
+              className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm"
+            >
               {tech}
             </div>
           ))}

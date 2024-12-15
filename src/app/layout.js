@@ -14,6 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const metadata = {
   title: "Sayed MD Fahim Fahad",
   description: "Software Engineer @ Toptal",
@@ -28,9 +35,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavBar />
-        <main>{children}</main>
-        <Footer />
+        <div>
+          <NavBar />
+          <main className="min-h-[87vh] overflow-y-auto">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

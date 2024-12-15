@@ -1,6 +1,11 @@
 import { getMediumBlogData } from "../_lib/api-util";
 import BlogComponent from "../components/blog-component";
 
+export const metadata = {
+  title: "Fahim's Blogs",
+  description: "Fahim Fahad",
+};
+
 export default async function BlogsPage() {
   const posts = await getMediumBlogData();
 

@@ -1,5 +1,10 @@
 import ProfileImageComponent from "../components/profile-component";
 
+export const metadata = {
+  title: "Sayed MD Fahim Fahad",
+  description: "Software Engineer @ Toptal",
+};
+
 export default function AboutMePage() {
   return (
     <>

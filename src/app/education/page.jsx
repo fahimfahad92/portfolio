@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Education",
+  description: "Fahim Fahad",
+};
+
 export default function EducationPage() {
   return (
     <>

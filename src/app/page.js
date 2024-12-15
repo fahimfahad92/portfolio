@@ -15,29 +15,28 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <div className="absolute flex flex-col items-center gap-5 w-full min-h-full bg-cover bg-center bg-[url('/bg.jpg')] p-5">
-        {/* Profile Image */}
+      <div className="flex flex-col items-center gap-5 w-full min-h-screen bg-cover bg-center bg-[url('/bg.jpg')] p-5">
         <ProfileImageComponent />
 
-        {/* Name Section */}
         <div className="p-2 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black">
             Sayed MD Fahim Fahad
           </h1>
         </div>
 
-        {/* Title */}
-        <h2 className="pb-5 text-lg sm:text-xl md:text-2xl font-medium text-black">
+        <h2 className="pb-5 text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-black text-center">
           Software Engineer @ Toptal
         </h2>
 
-        {/* Icon Section */}
         <div className="flex flex-wrap justify-center gap-4">
-          <JavaIcon size="50" />
-          <SpringBootIcon size="50" />
-          <AwsIcon size="50" />
-          <ReactIcon size="50" />
-          <NextIcon size="50" />
+          <JavaIcon size="40" className="sm:size-50 md:size-60 lg:size-70" />
+          <SpringBootIcon
+            size="40"
+            className="sm:size-50 md:size-60 lg:size-70"
+          />
+          <AwsIcon size="40" className="sm:size-50 md:size-60 lg:size-70" />
+          <ReactIcon size="40" className="sm:size-50 md:size-60 lg:size-70" />
+          <NextIcon size="40" className="sm:size-50 md:size-60 lg:size-70" />
         </div>
       </div>
     </>
