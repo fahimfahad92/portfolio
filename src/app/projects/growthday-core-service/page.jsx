@@ -1,4 +1,4 @@
-import { ArrowOutwardIcon } from "@/app/components/icons/common-icons";
+import ViewDetailsExternal from "@/app/components/view-details-external-component";
 
 const techStack = [
   "Java (8, 11, 17, 21)",
@@ -47,16 +47,7 @@ export default function GrowthDayCoreServiceDetailPage() {
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap w-20 sm:w-10 md:w-16 lg:w-20 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm">
-            <a
-              href="https://app.growthday.com/"
-              target="_blank"
-              className="hover:text-gray-300 flex items-center space-x-1"
-            >
-              <span>Demo</span>
-              <ArrowOutwardIcon />
-            </a>
-          </div>
+          <ViewDetailsExternal href="https://app.growthday.com/" />
         </div>
         <div>
           GrowthDay is an all-in-one personal development platform. Strivers can

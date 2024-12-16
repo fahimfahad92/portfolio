@@ -27,7 +27,7 @@ export default function iAuditDetailPage() {
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap w-52 sm:w-10 md:w-20 lg:w-52 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm">
+          <div className="flex flex-wrap w-52 md:w-60 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-sm md:text-base">
             <span>Demo Not Available (Internal)</span>
           </div>
         </div>

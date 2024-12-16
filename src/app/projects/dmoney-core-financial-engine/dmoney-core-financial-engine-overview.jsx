@@ -1,5 +1,5 @@
-import { ArrowOutwardIcon } from "@/app/components/icons/common-icons";
-import Link from "next/link";
+import ViewDetails from "@/app/components/view-details-component";
+import ViewDetailsExternal from "@/app/components/view-details-external-component";
 
 const techStack = ["Java", "Spring Boot", "Oracle"];
 
@@ -26,25 +26,8 @@ export default function DmoneyCoreFinancialEngine() {
         </div>
 
         <div className="flex flex-row space-x-2">
-          <div className="flex flex-wrap w-20 sm:w-10 md:w-16 lg:w-20 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm">
-            <a
-              href="https://www.dmoney.com.bd/"
-              target="_blank"
-              className="hover:text-gray-300 flex items-center space-x-1"
-            >
-              <span>Demo</span>
-              <ArrowOutwardIcon />
-            </a>
-          </div>
-          <div className="flex flex-wrap w-20 sm:w-10 md:w-16 lg:w-20 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm">
-            <Link
-              href={"/projects/dmoney-core-financial-engine"}
-              className="hover:text-gray-300 flex items-center space-x-1"
-            >
-              <span>Details</span>
-              <ArrowOutwardIcon />
-            </Link>
-          </div>
+          <ViewDetailsExternal href="https://www.dmoney.com.bd/" />
+          <ViewDetails href={"/projects/dmoney-core-financial-engine"} />
         </div>
       </div>
     </>

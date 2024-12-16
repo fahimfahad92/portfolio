@@ -1,5 +1,4 @@
-import { ArrowOutwardIcon } from "@/app/components/icons/common-icons";
-import Link from "next/link";
+import ViewDetails from "@/app/components/view-details-component";
 
 const techStack = ["Java", "Spring Boot", "Elasticsearch", "PostgreSQL"];
 
@@ -25,18 +24,10 @@ export default function ActionTracker() {
           ))}
         </div>
         <div className="flex flex-row space-x-2">
-          <div className="flex flex-wrap w-36 sm:w-10 md:w-20 lg:w-36 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm">
+          <div className="flex flex-wrap w-52 md:w-60 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-sm md:text-base">
             <span>Demo Not Available (Internal)</span>
           </div>
-          <div className="flex flex-wrap w-20 sm:w-10 md:w-16 lg:w-20 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm">
-            <Link
-              href={"/projects/action-tracker"}
-              className="hover:text-gray-300 flex items-center space-x-1"
-            >
-              <span>Details</span>
-              <ArrowOutwardIcon />
-            </Link>
-          </div>
+          <ViewDetails href={"/projects/action-tracker"} />
         </div>
       </div>
     </>

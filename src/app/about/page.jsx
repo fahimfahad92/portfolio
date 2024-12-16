@@ -9,13 +9,13 @@ export default function AboutMePage() {
   return (
     <>
       <div className="flex items-center justify-center pt-20 pb-20">
-        <div className="grid grid-cols-4 bg-gray-200 p-6 mx-40 rounded shadow">
-          <div className="col-span-1 flex justify-center items-center">
+        <div className="grid grid-cols-1 md:grid-cols-4 bg-gray-200 p-6 mx-5 md:mx-20 lg:mx-40 rounded shadow">
+          <div className="col-span-1 flex justify-center items-center mb-5 md:mb-0">
             <div>
               <div>
                 <ProfileImageComponent />
               </div>
-              <div className="flex pt-5">
+              <div className="flex flex-wrap justify-center pt-5">
                 <div className="rounded bg-black text-white flex justify-center items-center m-2 h-10 w-20">
                   SaaS
                 </div>
@@ -28,15 +28,19 @@ export default function AboutMePage() {
               </div>
             </div>
           </div>
-          <div className="col-span-3 pl-5 space-y-3">
-            <h2 className="flex justify-center">Sayed MD Fahim Fahad</h2>
-            <h3 className="flex justify-center">Software Engineer</h3>
+          <div className="col-span-3 md:pl-5 space-y-3 text-center md:text-left">
+            <h2 className="flex justify-center md:justify-start">
+              Sayed MD Fahim Fahad
+            </h2>
+            <h3 className="flex justify-center md:justify-start">
+              Software Engineer
+            </h3>
             <p>
               Hello, I am Sayed MD Fahim Fahad, a software engineer with 8 years
               of professional experience. I have contributed to projects in the
               fintech and life coaching industries, working with two startups
               from the very beginning. Both projects were successfully launched
-              and gained active users. I love working on SaaS products. 
+              and gained active users. I love working on SaaS products.
             </p>
             <p>
               My expertise lies in Java, Spring Boot, and various AWS services.

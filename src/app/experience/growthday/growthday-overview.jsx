@@ -1,5 +1,4 @@
-import { ArrowOutwardIcon } from "@/app/components/icons/common-icons";
-import Link from "next/link";
+import ViewDetails from "@/app/components/view-details-component";
 
 const techStack = ["Java", "Spring Boot", "AWS", "MongoDB", "Elasticsearch"];
 
@@ -18,7 +17,10 @@ export default function GrowthDay() {
         <div className="pt-3">Primary Tech stack</div>
         <div className="space-x-2">
           {techStack.map((tech) => (
-            <div className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm">
+            <div
+              className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm"
+              key={tech}
+            >
               {tech}
             </div>
           ))}
@@ -35,15 +37,7 @@ export default function GrowthDay() {
             Signup APP
           </div>
         </div>
-        <div className="flex flex-wrap w-20 sm:w-10 md:w-16 lg:w-20 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm">
-          <Link
-            href={"/experience/growthday"}
-            className="hover:text-gray-300 flex items-center space-x-1"
-          >
-            <span>Details</span>
-            <ArrowOutwardIcon />
-          </Link>
-        </div>
+        <ViewDetails href="/experience/growthday" />
       </div>
     </>
   );

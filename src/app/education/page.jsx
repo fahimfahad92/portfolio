@@ -6,7 +6,7 @@ export const metadata = {
 export default function EducationPage() {
   return (
     <>
-      <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5 p-5">
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-5 p-5">
         <div className="bg-gray-200 rounded shadow font-serif p-2 flex flex-col space-y-4">
           <div className="font-bold">
             Jahangirnagar University । জাহাঙ্গীরনগর বিশ্ববিদ্যালয়
