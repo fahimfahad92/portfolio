@@ -1,13 +1,13 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import Footer from "@/app/footer";
 import NavBar from "./components/nav-bar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -30,9 +30,10 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" />
       </head>
-      <body
+      {/* <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      > */}
+      <body>
         <div>
           <NavBar />
           <main className="min-h-[87vh] overflow-y-auto">{children}</main>
