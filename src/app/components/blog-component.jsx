@@ -1,5 +1,7 @@
+import { formatDate } from "../_lib/date-util";
+
 export default function BlogComponent({ post }) {
-  // const formattedDate = formatDate(post?.pubDate.substring(0, 10));
+  const formattedDate = formatDate(post?.pubDate.substring(0, 10));
 
   return (
     <>
@@ -11,9 +13,9 @@ export default function BlogComponent({ post }) {
                 {post.title}
               </p>
             </div>
-            {/* <div className="flex justify-center bg-black text-white px-2 py-1 text-xs sm:text-sm">
+            <div className="flex justify-center bg-black text-white px-2 py-1 text-xs sm:text-sm">
               ({formattedDate})
-            </div> */}
+            </div>
           </div>
           <div className="flex flex-wrap justify-center gap-2">
             {post.categories.map((category, index) => (
