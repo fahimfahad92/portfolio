@@ -14,6 +14,10 @@ export function formatDate(dateString) {
     "December",
   ];
 
+  if (!dateString) {
+    return null;
+  }
+
   const [year, month, day] = dateString.split("-");
 
   // Function to determine ordinal suffix

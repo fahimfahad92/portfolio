@@ -1,7 +1,7 @@
 import { formatDate } from "../_lib/date-util";
 
 export default function BlogComponent({ post }) {
-  const formattedDate = formatDate(post.pubDate.substring(0, 10));
+  const formattedDate = formatDate(post?.pubDate?.substring(0, 10));
 
   return (
     <>
