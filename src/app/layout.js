@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
           <main className="min-h-[87vh] overflow-y-auto">{children}</main>
           <Footer />
           <SpeedInsights />
+          <Analytics />
         </div>
       </body>
     </html>
