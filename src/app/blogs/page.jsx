@@ -1,4 +1,4 @@
-import { getMediumBlogData } from "../_lib/api-util";
+import { getBlogData } from "../_lib/api-util";
 import BlogComponent from "../components/blog-component";
 
 export const metadata = {
@@ -7,13 +7,13 @@ export const metadata = {
 };
 
 export default async function BlogsPage() {
-  const posts = await getMediumBlogData();
+  const blogs = await getBlogData();
 
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-2 gap-5 p-5">
-        {posts.items.map((post) => (
-          <BlogComponent post={post} key={post.title} />
+        {blogs.map((blog) => (
+          <BlogComponent blog={blog} key={blog.id} />
         ))}
       </div>
     </>
