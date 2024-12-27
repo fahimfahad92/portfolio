@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 
 export async function getBlogData() {
+  console.log("Calling firestore to get blog data");
   const q = query(collection(db, "blogs"), orderBy("publishDate", "desc"));
   const querySnapshot = await getDocs(q);
   let data = [];
@@ -18,7 +19,6 @@ export async function getBlogData() {
       publishDate: doc.data().publishDate.toDate(),
     });
   });
-  console.log("Blog data from firestore");
 
   return data;
 }
