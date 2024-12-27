@@ -14,7 +14,7 @@ export function formatDate(date) {
     "December",
   ];
 
-  let dateString = date.toISOString().split("T")[0];
+  let dateString = date?.split("T")[0];
 
   const [year, month, day] = dateString.split("-");
 
