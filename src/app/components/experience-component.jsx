@@ -3,7 +3,10 @@ import ViewDetails from "@/app/components/view-details-component";
 export default function ExperienceComponent({ experience }) {
   return (
     <>
-      <div className="bg-gray-200 rounded shadow font-serif p-2 flex flex-col">
+      <div
+        className="bg-gray-200 rounded shadow font-serif p-2 flex flex-col"
+        key={experience.companyName}
+      >
         <div className="font-bold text-lg sm:text-sm lg:text-xl">
           {experience.position}
         </div>

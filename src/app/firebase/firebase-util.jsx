@@ -8,6 +8,21 @@ import {
   where,
 } from "firebase/firestore";
 
+export async function getProjectsData() {
+  console.log("Calling firestore to get projects data");
+  const q = query(collection(db, "projects"), orderBy("order", "desc"));
+  const querySnapshot = await getDocs(q);
+  let data = [];
+  querySnapshot.forEach((doc) => {
+    data.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+
+  return data;
+}
+
 export async function getExperienceData() {
   console.log("Calling firestore to get experience data");
   const q = query(collection(db, "experience"), orderBy("order", "desc"));
