@@ -6,11 +6,11 @@ export default function BlogComponent({ blog }) {
   return (
     <a href={blog.link} target="_blank">
       <div className="bg-gray-200 rounded shadow font-serif p-2 flex flex-col space-y-4">
-        <div>
-          <div className="rounded-t bg-black text-white flex justify-center items-center p-2 font-bold text-center text-sm lg:text-lg">
+        <div className="bg-black text-white rounded ">
+          <div className="flex justify-center items-center p-2 font-bold text-center text-sm lg:text-lg">
             {blog.title}
           </div>
-          <div className="flex justify-center bg-black text-white px-2 py-1 text-xs sm:text-sm">
+          <div className="flex justify-center px-2 py-1 text-sm">
             ({formattedDate})
           </div>
         </div>
