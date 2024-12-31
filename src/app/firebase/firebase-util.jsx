@@ -23,6 +23,26 @@ export async function getProjectsData() {
   return data;
 }
 
+export async function getProjectDetailsData(projectName) {
+  console.log(
+    "Calling firestore to get project details data for " + projectName
+  );
+  const q = query(
+    collection(db, "projectDetails"),
+    where("name", "==", projectName)
+  );
+  const querySnapshot = await getDocs(q);
+  let data = [];
+  querySnapshot.forEach((doc) => {
+    data.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+
+  return data[0];
+}
+
 export async function getExperienceData() {
   console.log("Calling firestore to get experience data");
   const q = query(collection(db, "experience"), orderBy("order", "desc"));
