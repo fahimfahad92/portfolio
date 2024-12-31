@@ -132,3 +132,18 @@ export async function getSkillsData() {
 
   return data;
 }
+
+export async function getEducationData() {
+  console.log("Calling firestore to get education data");
+  const q = query(collection(db, "education"), orderBy("order", "asc"));
+  const querySnapshot = await getDocs(q);
+  let data = [];
+  querySnapshot.forEach((doc) => {
+    data.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+
+  return data;
+}
