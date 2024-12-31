@@ -117,3 +117,18 @@ export function getBlogDataSnapshot(callback) {
 
   return unsubscribe;
 }
+
+export async function getSkillsData() {
+  console.log("Calling firestore to get skills data");
+  const q = query(collection(db, "skills"), orderBy("order", "asc"));
+  const querySnapshot = await getDocs(q);
+  let data = [];
+  querySnapshot.forEach((doc) => {
+    data.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+
+  return data;
+}
