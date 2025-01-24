@@ -34,7 +34,7 @@ export default async function SkillsPage() {
             .sort()
             .map(([name, year]) => (
               <div
-                className={`inline-block rounded shadow text-white px-2 py-1 text-xs sm:text-sm lg:text-lg ${skillData.color}`}
+                className="inline-block rounded shadow text-white px-2 py-1 text-xs sm:text-sm lg:text-lg bg-blue-500"
                 key={name}
               >
                 {name}: {year} Years

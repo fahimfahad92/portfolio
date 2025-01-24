@@ -42,7 +42,7 @@ export default async function CompanyDetailPage({ params }) {
 
         {experienceDetails.companies && (
           <MapComponent
-            title="Company:"
+            title="Companies:"
             mapData={experienceDetails.companies}
             isLink={true}
           />

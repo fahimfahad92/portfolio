@@ -20,7 +20,10 @@ export default function ExperienceComponent({ experience }) {
         <div className="pt-3">Primary Tech stack</div>
         <div className="space-x-2">
           {experience.techStack.map((tech) => (
-            <div className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm">
+            <div
+              className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm"
+              key={tech}
+            >
               {tech}
             </div>
           ))}
@@ -42,7 +45,10 @@ export default function ExperienceComponent({ experience }) {
         <div className="space-x-2 space-y-2">
           {experience.companies &&
             experience.companies.map((company) => (
-              <div className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm">
+              <div
+                className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm"
+                key={company}
+              >
                 {company}
               </div>
             ))}

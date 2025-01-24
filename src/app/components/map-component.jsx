@@ -4,13 +4,16 @@ export default function MapComponent({ title, mapData, isLink }) {
   if (isLink) {
     return (
       <>
-        {Object.entries(mapData).map(([key, value]) => (
-          <ViewDetails
-            href={`/experience/${key}`}
-            placeholder={value}
-            key={key}
-          />
-        ))}
+        <div className="pt-3">{title}</div>
+        <div className="flex flex-row space-x-2 space-y-2">
+          {Object.entries(mapData).map(([key, value]) => (
+            <ViewDetails
+              href={`/experience/${key}`}
+              placeholder={value}
+              key={key}
+            />
+          ))}
+        </div>
       </>
     );
   } else {
