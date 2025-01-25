@@ -7,8 +7,6 @@ import { unstable_cache } from "next/cache";
 export default async function ProjectDetailPage({ params }) {
   const projectName = (await params).projectName;
 
-  console.log("building page for " + projectName);
-
   const getProjectDetails = unstable_cache(
     async (projectName) => {
       return await getProjectDetailsData(projectName);
@@ -18,6 +16,14 @@ export default async function ProjectDetailPage({ params }) {
   );
 
   const projectDetails = await getProjectDetails(projectName);
+
+  if (!projectDetails) {
+    return (
+      <div className="font-bold text-lg text-center">
+        No project details found for this project
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 gap-5 p-5">
