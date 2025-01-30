@@ -4,20 +4,24 @@ import LinkComponent from "./link-component";
 
 export default function ProjectComponent({ project }) {
   return (
-    <>
-      <div className="bg-gray-200 rounded shadow font-serif p-2 flex flex-col">
-        <div className="font-bold text-lg sm:text-sm lg:text-xl">
-          {project.displayName}
-        </div>
-        <div className="text-base sm:text-sm lg:text-base">
-          {project.companyName} ({project.timeline})
-        </div>
-        <ItemComponent title="Primary Tech stack" items={project.techStack} />
-        <div className="flex flex-row space-x-2">
-          <LinkComponent link={project.link} external={true} />
-          <ViewDetails href={`/projects/${project.name}`} />
-        </div>
+    <div className="bg-white rounded-lg shadow-md font-serif p-4 flex flex-col space-y-3">
+      {/* Project Title */}
+      <h2 className="font-bold text-lg md:text-xl">{project.displayName}</h2>
+
+      {/* Company Name & Timeline */}
+      <p className="text-sm md:text-base text-gray-700">
+        {project.companyName}{" "}
+        <span className="font-medium text-gray-600">({project.timeline})</span>
+      </p>
+
+      {/* Tech Stack */}
+      <ItemComponent title="Primary Tech Stack" items={project.techStack} />
+
+      {/* Links Section */}
+      <div className="flex flex-wrap gap-3 pt-2">
+        <LinkComponent link={project.link} external={true} />
+        <ViewDetails href={`/projects/${project.name}`} />
       </div>
-    </>
+    </div>
   );
 }

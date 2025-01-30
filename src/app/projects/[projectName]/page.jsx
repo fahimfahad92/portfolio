@@ -19,38 +19,55 @@ export default async function ProjectDetailPage({ params }) {
 
   if (!projectDetails) {
     return (
-      <div className="font-bold text-lg text-center">
-        No project details found for this project
+      <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
+        No project details found for this project.
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-5 p-5">
-      <div className="rounded shadow font-serif p-2 ">
-        <div className="font-bold text-lg sm:text-sm lg:text-xl">
+    <div className="grid grid-cols-1 gap-6 p-6 font-serif text-gray-800">
+      {/* Project Overview */}
+      <div className="bg-white rounded-lg shadow-md p-5 space-y-3">
+        <h2 className="font-bold text-lg md:text-xl">
           {projectDetails.displayName}
-        </div>
-        <div className="text-base sm:text-sm lg:text-base">
-          {projectDetails.companyName} ({projectDetails.timeline})
-        </div>
+        </h2>
+        <p className="text-sm md:text-base text-gray-700">
+          {projectDetails.companyName}{" "}
+          <span className="font-medium text-gray-600">
+            ({projectDetails.timeline})
+          </span>
+        </p>
 
+        {/* Tech Stack */}
         <ItemComponent title="Tech Stack" items={projectDetails.techStack} />
-        <LinkComponent link={projectDetails.link} external={true} />
+
+        {/* Project Link */}
+        <div className="pt-2">
+          <LinkComponent link={projectDetails.link} external={true} />
+        </div>
       </div>
 
-      {projectDetails.description && <div>{projectDetails.description}</div>}
+      {/* Project Description */}
+      {projectDetails.description && (
+        <div className="bg-gray-100 rounded-lg shadow-sm p-4">
+          <h3 className="font-semibold text-gray-800">Project Description</h3>
+          <p className="text-sm text-gray-700">{projectDetails.description}</p>
+        </div>
+      )}
 
+      {/* Responsibilities */}
       {projectDetails.primaryResponsibility && (
         <ListComponent
-          title="Primary responsibility:"
+          title="Primary Responsibilities"
           listData={projectDetails.primaryResponsibility}
         />
       )}
 
+      {/* Achievements */}
       {projectDetails.mentionableAchievements && (
         <ListComponent
-          title="Mentionable achievements:"
+          title="Mentionable Achievements"
           listData={projectDetails.mentionableAchievements}
         />
       )}

@@ -14,19 +14,17 @@ const getBlogs = unstable_cache(
     return await getBlogData();
   },
   ["blogs"],
-  { revalidate: 3600, tags: ["blogs"] }
+  { revalidate: 604800, tags: ["blogs"] }
 );
 
 export default async function BlogsPage() {
   const blogs = await getBlogs();
 
   return (
-    <>
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-2 gap-5 p-5">
-        {blogs?.map((blog) => (
-          <BlogComponent blog={blog} key={blog.id} />
-        ))}
-      </div>
-    </>
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-2 gap-5 p-5">
+      {blogs?.map((blog) => (
+        <BlogComponent blog={blog} key={blog.id} />
+      ))}
+    </div>
   );
 }

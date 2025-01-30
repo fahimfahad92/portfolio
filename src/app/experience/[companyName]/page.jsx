@@ -18,51 +18,63 @@ export default async function CompanyDetailPage({ params }) {
   const experienceDetails = await getExperienceDetails();
 
   return (
-    <div className="grid grid-cols-1 gap-5 p-5 font-base font-serif">
-      <div className="rounded shadow p-2">
-        <div className="font-bold text-lg sm:text-sm lg:text-xl">
+    <div className="grid grid-cols-1 gap-6 p-6 font-serif text-gray-800">
+      {/* Experience Overview */}
+      <div className="bg-white rounded-lg shadow-md p-5 space-y-3">
+        <h2 className="font-bold text-lg lg:text-xl">
           {experienceDetails.position}
-        </div>
-        <div className="sm:text-sm lg:text-base">
-          {experienceDetails.displayName}
-        </div>
-        <div>{experienceDetails.timeline}</div>
-        <div>
-          {experienceDetails.address} ({experienceDetails.jobType})
-        </div>
+        </h2>
+        <p className="text-sm lg:text-base">{experienceDetails.displayName}</p>
+        <p className="text-gray-600 text-sm">{experienceDetails.timeline}</p>
+        <p className="text-gray-700 text-sm">
+          {experienceDetails.address}
+          <span className="font-semibold">({experienceDetails.jobType})</span>
+        </p>
+
+        {/* Tech Stack Section */}
         <ItemComponent title="Tech Stack" items={experienceDetails.techStack} />
 
+        {/* Related Projects */}
         {experienceDetails.projects && (
           <MapComponent
-            title="Related projects"
+            title="Related Projects"
             mapData={experienceDetails.projects}
             isLink={false}
           />
         )}
 
+        {/* Companies */}
         {experienceDetails.companies && (
           <MapComponent
-            title="Companies:"
+            title="Companies"
             mapData={experienceDetails.companies}
             isLink={true}
           />
         )}
       </div>
 
+      {/* Description Section */}
       {experienceDetails.description && (
-        <div>{experienceDetails.description}</div>
+        <div className="bg-gray-100 rounded-lg shadow-sm p-4">
+          <h3 className="font-semibold text-gray-800">Description</h3>
+          <p className="text-sm text-gray-700">
+            {experienceDetails.description}
+          </p>
+        </div>
       )}
 
+      {/* Responsibilities */}
       {experienceDetails.primaryResponsibility && (
         <ListComponent
-          title="Primary responsibility:"
+          title="Primary Responsibilities"
           listData={experienceDetails.primaryResponsibility}
         />
       )}
 
+      {/* Achievements */}
       {experienceDetails.mentionableAchievement && (
         <ListComponent
-          title="Mentionable achievements:"
+          title="Mentionable Achievements"
           listData={experienceDetails.mentionableAchievement}
         />
       )}

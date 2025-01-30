@@ -23,23 +23,27 @@ export default async function SkillsPage() {
     <>
       {skills?.map((skillData) => (
         <div
-          className="flex flex-wrap justify-start gap-2 p-5 font-serif text-lg sm:text-xl md:text-2xl"
+          className="p-5 font-serif text-lg sm:text-xl md:text-2xl space-y-3"
           key={skillData.group}
         >
-          <div className="w-full">
-            <h2>{skillData.group}</h2>
-          </div>
+          {/* Skill Group Title */}
+          <h2 className="w-full font-semibold text-gray-800">
+            {skillData.group}
+          </h2>
 
-          {Object.entries(skillData.skillMap)
-            .sort()
-            .map(([name, year]) => (
-              <div
-                className="inline-block rounded shadow text-white px-2 py-1 text-xs sm:text-sm lg:text-lg bg-blue-500"
-                key={name}
-              >
-                {name}: {year} Years
-              </div>
-            ))}
+          {/* Skill List */}
+          <div className="flex flex-wrap gap-3">
+            {Object.entries(skillData.skillMap)
+              .sort()
+              .map(([name, year]) => (
+                <div
+                  className="inline-block rounded-lg shadow-md text-white px-3 py-2 text-sm sm:text-base lg:text-lg bg-blue-600"
+                  key={name}
+                >
+                  {name}: {year} Years
+                </div>
+              ))}
+          </div>
         </div>
       ))}
     </>
