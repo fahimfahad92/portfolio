@@ -1,12 +1,13 @@
-import { FaLinkedin, FaGithub } from "react-icons/fa6";
-import { TbMailFilled, TbBrandLeetcode } from "react-icons/tb";
+import Link from "next/link";
 import { FaMedium } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import { TbBrandLeetcode, TbMailFilled } from "react-icons/tb";
 
 function IconWithLink({ href, icon: Icon, size = 25 }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
+    <Link href={href} target="_blank" rel="noopener noreferrer">
       <Icon size={size} />
-    </a>
+    </Link>
   );
 }
 

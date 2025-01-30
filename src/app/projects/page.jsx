@@ -20,6 +20,12 @@ const getProjects = unstable_cache(
 export default async function ProjectsPage() {
   const projects = await getProjects();
 
+  if (!projects) {
+    return (
+      <div className="font-bold text-lg text-center">Projects not found</div>
+    );
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-1  lg:grid-cols-4 gap-5 p-5">

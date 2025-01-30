@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getEducationData } from "../firebase/firebase-util";
 
 export const metadata = {
@@ -27,11 +28,11 @@ export default async function EducationPage() {
               {educationData.publisherName} · {educationData.publicationDate}
             </div>
             <div>{educationData.publicationDetail}</div>
-            <a href={educationData.publicationLink} target="_blank">
+            <Link href={educationData.publicationLink} target="_blank">
               <div className="flex flex-wrap w-20 sm:w-20 md:w-44 lg:w-44 rounded shadow bg-slate-500 text-white px-2 py-1 text-xs sm:text-sm">
                 View On publication site
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       ))}

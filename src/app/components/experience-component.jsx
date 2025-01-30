@@ -34,7 +34,10 @@ export default function ExperienceComponent({ experience }) {
           {experience.projects &&
             Object.entries(experience.projects).map(
               ([projectName, projectDisplayName]) => (
-                <div className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm">
+                <div
+                  className="inline-block rounded shadow bg-black text-white px-1 py-1 text-xs sm:text-sm lg:text-sm"
+                  key={projectName}
+                >
                   {projectDisplayName}
                 </div>
               )
