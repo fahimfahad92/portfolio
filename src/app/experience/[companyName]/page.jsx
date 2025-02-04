@@ -39,7 +39,8 @@ export default async function CompanyDetailPage({ params }) {
           <MapComponent
             title="Related Projects"
             mapData={experienceDetails.projects}
-            isLink={false}
+            isLink={true}
+            linkPrefix={"projects"}
           />
         )}
 
@@ -49,6 +50,7 @@ export default async function CompanyDetailPage({ params }) {
             title="Companies"
             mapData={experienceDetails.companies}
             isLink={true}
+            linkPrefix={"experience"}
           />
         )}
       </div>
