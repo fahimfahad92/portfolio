@@ -15,7 +15,7 @@ export default function LinkComponent({
   }
 
   return (
-    <div className="flex flex-wrap w-52 md:w-60 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-sm md:text-base">
+    <div className="flex flex-wrap max-w-fit rounded shadow bg-slate-500 text-white px-2 py-1 text-sm items-center">
       <span>Demo Not Available (Internal)</span>
     </div>
   );

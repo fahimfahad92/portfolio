@@ -27,7 +27,7 @@ export default async function ProjectsPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1  lg:grid-cols-4 gap-5 p-5">
+    <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-5 p-5">
       {projects?.map((project) => (
         <ProjectComponent project={project} key={project.name} />
       ))}

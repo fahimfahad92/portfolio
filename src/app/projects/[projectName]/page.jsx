@@ -26,14 +26,14 @@ export default async function ProjectDetailPage({ params }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 p-6 font-serif text-gray-800">
+    <div className="grid grid-cols-1 gap-3 p-6 font-serif text-gray-800">
       {/* Project Overview */}
-      <div className="bg-white rounded-lg shadow-md p-5 space-y-3">
+      <div className="bg-white rounded-lg shadow-md p-3 space-y-1">
         <h2 className="font-bold text-lg md:text-xl">
           {projectDetails.displayName}
         </h2>
         <p className="text-sm md:text-base text-gray-700">
-          {projectDetails.companyName}{" "}
+          {projectDetails.companyName}
           <span className="font-medium text-gray-600">
             ({projectDetails.timeline})
           </span>
@@ -52,7 +52,9 @@ export default async function ProjectDetailPage({ params }) {
       {projectDetails.description && (
         <div className="bg-gray-100 rounded-lg shadow-sm p-4">
           <h3 className="font-semibold text-gray-800">Project Description</h3>
-          <p className="text-sm text-gray-700">{projectDetails.description}</p>
+          <p className="text-base text-gray-700">
+            {projectDetails.description}
+          </p>
         </div>
       )}
 

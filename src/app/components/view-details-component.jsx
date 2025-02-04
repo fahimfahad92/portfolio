@@ -1,14 +1,18 @@
-import { ArrowOutwardIcon } from "@/app/components/icons/common-icons";
 import Link from "next/link";
+import { ArrowOutwardIcon } from "./icons/common-icons";
 
 export default function ViewDetails({ href, placeholder = "Details" }) {
   return (
-    <Link
-      href={href}
-      className="hover:text-gray-300 items-center space-x-1 flex flex-wrap max-w-28 rounded shadow bg-slate-500 text-white px-2 py-1 mt-2 text-xs sm:text-sm"
-    >
-      <span>{placeholder}</span>
-      <ArrowOutwardIcon />
-    </Link>
+    <div className="max-w-fit min-w-0 bg-slate-500 rounded-lg shadow-md transition-all">
+      <Link
+        href={href}
+        className="hover:text-gray-300 items-center flex flex-wrap max-w-fit rounded shadow text-white px-2 py-1 text-sm"
+      >
+        <p className="flex flex-row">
+          {placeholder}
+          <ArrowOutwardIcon />
+        </p>
+      </Link>
+    </div>
   );
 }
