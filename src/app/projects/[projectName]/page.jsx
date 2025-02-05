@@ -1,6 +1,7 @@
 import ItemComponent from "@/app/components/item-component";
 import LinkComponent from "@/app/components/link-component";
 import ListComponent from "@/app/components/list-component";
+import { CACHING_CONSTATS } from "@/app/constants/caching-constans";
 import { getProjectDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
 
@@ -12,7 +13,7 @@ export default async function ProjectDetailPage({ params }) {
       return await getProjectDetailsData(projectName);
     },
     [projectName],
-    { revalidate: 3600 }
+    { revalidate: CACHING_CONSTATS.DEFAUT, tags: [projectName] }
   );
 
   const projectDetails = await getProjectDetails(projectName);

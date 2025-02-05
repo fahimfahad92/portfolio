@@ -1,4 +1,6 @@
+import { unstable_cache } from "next/cache";
 import Link from "next/link";
+import { CACHING_CONSTATS } from "../constants/caching-constans";
 import { getEducationData } from "../firebase/firebase-util";
 
 export const metadata = {
@@ -6,8 +8,16 @@ export const metadata = {
   description: "Fahim Fahad",
 };
 
+const getEducation = unstable_cache(
+  async () => {
+    return await getEducationData();
+  },
+  ["education"],
+  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["education"] }
+);
+
 export default async function EducationPage() {
-  const education = await getEducationData();
+  const education = await getEducation();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">

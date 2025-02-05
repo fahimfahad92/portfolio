@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import { CACHING_CONSTATS } from "../constants/caching-constans";
 import { getSkillsData } from "../firebase/firebase-util";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +14,7 @@ const getSkills = unstable_cache(
     return await getSkillsData();
   },
   ["skills"],
-  { revalidate: 3600 }
+  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["skills"] }
 );
 
 export default async function SkillsPage() {

@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import ProjectComponent from "../components/project-component";
+import { CACHING_CONSTATS } from "../constants/caching-constans";
 import { getProjectsData } from "../firebase/firebase-util";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ const getProjects = unstable_cache(
     return await getProjectsData();
   },
   ["projects"],
-  { revalidate: 3600 }
+  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["projects"] }
 );
 
 export default async function ProjectsPage() {

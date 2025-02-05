@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import BlogComponent from "../components/blog-component";
+import { CACHING_CONSTATS } from "../constants/caching-constans";
 import { getBlogData } from "../firebase/firebase-util";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ const getBlogs = unstable_cache(
     return await getBlogData();
   },
   ["blogs"],
-  { revalidate: 604800, tags: ["blogs"] }
+  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["blogs"] }
 );
 
 export default async function BlogsPage() {

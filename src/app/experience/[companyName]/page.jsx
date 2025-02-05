@@ -1,6 +1,7 @@
 import ItemComponent from "@/app/components/item-component";
 import ListComponent from "@/app/components/list-component";
 import MapComponent from "@/app/components/map-component";
+import { CACHING_CONSTATS } from "@/app/constants/caching-constans";
 import { getExperienceDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
 
@@ -12,7 +13,7 @@ export default async function CompanyDetailPage({ params }) {
       return await getExperienceDetailsData(companyName);
     },
     [companyName],
-    { revalidate: 3600 }
+    { revalidate: CACHING_CONSTATS.DEFAUT, tags: [companyName] }
   );
 
   const experienceDetails = await getExperienceDetails();

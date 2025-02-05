@@ -10,9 +10,13 @@ export default function BlogComponent({ blog }) {
         {/* Title Section */}
         <div className="bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-lg p-4 text-center">
           <h2 className="font-bold text-base lg:text-xl">{blog.title}</h2>
-          <p className="text-xs lg:text-sm text-gray-300 mt-1">
-            ({formattedDate})
-          </p>
+          {formattedDate ? (
+            <p className="text-xs lg:text-sm text-gray-300 mt-1">
+              ({formattedDate})
+            </p>
+          ) : (
+            ""
+          )}
         </div>
 
         {/* Tags Section */}
