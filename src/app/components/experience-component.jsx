@@ -1,4 +1,5 @@
 import ViewDetails from "@/app/components/view-details-component";
+import { ROUTING_CONSTATS } from "../constants/routing-constants";
 
 export default function ExperienceComponent({ experience }) {
   return (
@@ -71,7 +72,9 @@ export default function ExperienceComponent({ experience }) {
         </div>
       )}
 
-      <ViewDetails href={`/experience/${experience.companyName}`} />
+      <ViewDetails
+        href={`${ROUTING_CONSTATS.EXPERIENCE}/${experience.companyName}`}
+      />
     </div>
   );
 }

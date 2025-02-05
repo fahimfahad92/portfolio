@@ -1,4 +1,5 @@
 import ViewDetails from "@/app/components/view-details-component";
+import { ROUTING_CONSTATS } from "../constants/routing-constants";
 import ItemComponent from "./item-component";
 import LinkComponent from "./link-component";
 
@@ -20,7 +21,7 @@ export default function ProjectComponent({ project }) {
       {/* Links Section */}
       <div className="flex flex-wrap gap-3 pt-2">
         <LinkComponent link={project.link} external={true} />
-        <ViewDetails href={`/projects/${project.name}`} />
+        <ViewDetails href={`${ROUTING_CONSTATS.PROJECTS}/${project.name}`} />
       </div>
     </div>
   );
