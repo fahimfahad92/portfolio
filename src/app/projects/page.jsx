@@ -23,7 +23,9 @@ export default async function ProjectsPage() {
 
   if (!projects) {
     return (
-      <div className="font-bold text-lg text-center">Projects not found</div>
+      <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
+        Projects not found
+      </div>
     );
   }
 

@@ -18,6 +18,14 @@ export default async function CompanyDetailPage({ params }) {
 
   const experienceDetails = await getExperienceDetails();
 
+  if (!experienceDetails) {
+    return (
+      <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
+        Experience details not found
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 p-6 font-serif text-gray-800">
       {/* Experience Overview */}

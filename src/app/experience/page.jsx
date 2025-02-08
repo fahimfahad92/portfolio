@@ -19,6 +19,14 @@ const getExperience = unstable_cache(
 export default async function ExperiencePage() {
   const experiences = await getExperience();
 
+  if (!experiences) {
+    return (
+      <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
+        Experience data not found
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
       {experiences?.map((experience) => (

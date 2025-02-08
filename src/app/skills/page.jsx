@@ -20,6 +20,14 @@ const getSkills = unstable_cache(
 export default async function SkillsPage() {
   const skills = await getSkills();
 
+  if (!skills) {
+    return (
+      <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
+        Skills data not found
+      </div>
+    );
+  }
+
   return (
     <>
       {skills?.map((skillData) => (
