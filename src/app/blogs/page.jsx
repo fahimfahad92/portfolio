@@ -15,7 +15,7 @@ const getBlogs = unstable_cache(
     return await getBlogData();
   },
   ["blogs"],
-  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["blogs"] }
+  { revalidate: CACHING_CONSTATS.ONE_DAY, tags: ["blogs"] }
 );
 
 export default async function BlogsPage() {

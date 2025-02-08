@@ -14,7 +14,7 @@ const getSkills = unstable_cache(
     return await getSkillsData();
   },
   ["skills"],
-  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["skills"] }
+  { revalidate: CACHING_CONSTATS.ONE_DAY, tags: ["skills"] }
 );
 
 export default async function SkillsPage() {

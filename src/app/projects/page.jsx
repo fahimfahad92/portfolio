@@ -15,7 +15,7 @@ const getProjects = unstable_cache(
     return await getProjectsData();
   },
   ["projects"],
-  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["projects"] }
+  { revalidate: CACHING_CONSTATS.SEVEN_DAY, tags: ["projects"] }
 );
 
 export default async function ProjectsPage() {

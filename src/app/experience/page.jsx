@@ -13,7 +13,7 @@ const getExperience = unstable_cache(
     return await getExperienceData();
   },
   ["experience"],
-  { revalidate: CACHING_CONSTATS.DEFAUT, tags: ["experience"] }
+  { revalidate: CACHING_CONSTATS.SEVEN_DAY, tags: ["experience"] }
 );
 
 export default async function ExperiencePage() {
