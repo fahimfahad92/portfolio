@@ -16,9 +16,13 @@ export function formatDate(date) {
 
   let dateString = false;
   try {
-    dateString = date.split("T")[0];
+    if (date.includes("GMT+0600")) {
+      return date.substring(0, 15);
+    } else {
+      dateString = date.split("T")[0];
+    }
   } catch (err) {
-    console.log(`Error for date ${date}`);
+    console.log(`Error for date ${date} ${err}`);
     return dateString;
   }
 
