@@ -4,18 +4,28 @@ import ListComponent from "@/app/components/list-component";
 import { CACHING_CONSTATS } from "@/app/constants/caching-constans";
 import { getProjectDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
+import { getProjects } from "../page";
+
+let projectName = "";
+
+const getProjectDetails = unstable_cache(
+  async (projectName) => {
+    return await getProjectDetailsData(projectName);
+  },
+  [projectName],
+  { revalidate: CACHING_CONSTATS.DEFAUT, tags: [projectName] }
+);
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+
+  return projects.map((project) => ({
+    projectDetails: getProjectDetails(project.name),
+  }));
+}
 
 export default async function ProjectDetailPage({ params }) {
-  const projectName = (await params).projectName;
-
-  const getProjectDetails = unstable_cache(
-    async (projectName) => {
-      return await getProjectDetailsData(projectName);
-    },
-    [projectName],
-    { revalidate: CACHING_CONSTATS.DEFAUT, tags: [projectName] }
-  );
-
+  projectName = (await params).projectName;
   const projectDetails = await getProjectDetails(projectName);
 
   if (!projectDetails) {

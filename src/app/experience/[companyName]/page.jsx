@@ -4,19 +4,29 @@ import MapComponent from "@/app/components/map-component";
 import { CACHING_CONSTATS } from "@/app/constants/caching-constans";
 import { getExperienceDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
+import { getExperience } from "../page";
+
+let companyName = "";
+
+const getExperienceDetails = unstable_cache(
+  async (companyName) => {
+    return await getExperienceDetailsData(companyName);
+  },
+  [companyName],
+  { revalidate: CACHING_CONSTATS.DEFAUT, tags: [companyName] }
+);
+
+export async function generateStaticParams() {
+  const experiences = await getExperience();
+
+  return experiences.map((experience) => ({
+    experienceDetails: getExperienceDetails(experience.companyName),
+  }));
+}
 
 export default async function CompanyDetailPage({ params }) {
-  const companyName = (await params).companyName;
-
-  const getExperienceDetails = unstable_cache(
-    async () => {
-      return await getExperienceDetailsData(companyName);
-    },
-    [companyName],
-    { revalidate: CACHING_CONSTATS.DEFAUT, tags: [companyName] }
-  );
-
-  const experienceDetails = await getExperienceDetails();
+  companyName = (await params).companyName;
+  const experienceDetails = await getExperienceDetails(companyName);
 
   if (!experienceDetails) {
     return (

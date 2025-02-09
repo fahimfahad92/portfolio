@@ -10,7 +10,7 @@ export const metadata = {
   description: "Fahim Fahad",
 };
 
-const getProjects = unstable_cache(
+export const getProjects = unstable_cache(
   async () => {
     return await getProjectsData();
   },
