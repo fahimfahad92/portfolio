@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@firebase/firestore": "^4.7.5",
+    "@firebase/firestore": "^4.7.7",
     "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^1.1.0",
     "firebase": "^11.1.0",
