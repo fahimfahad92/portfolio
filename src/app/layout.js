@@ -1,10 +1,9 @@
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 
 import Footer from "@/app/footer";
 import NavBar from "./components/nav-bar";
+import StatsigProviderWrapper from "@/app/providers/statsig-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,11 +35,12 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div>
-          <NavBar />
-          <main className="min-h-[87vh] overflow-y-auto">{children}</main>
-          <Footer />
-          <SpeedInsights />
-          <Analytics />
+            <StatsigProviderWrapper>
+                <NavBar/>
+                <main className="min-h-[87vh] overflow-y-auto">{children}</main>
+                <Footer/>
+            </StatsigProviderWrapper>
+
         </div>
       </body>
     </html>

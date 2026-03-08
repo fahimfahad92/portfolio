@@ -2,6 +2,7 @@ import { unstable_cache } from "next/cache";
 import ExperienceComponent from "../components/experience-component";
 import { CACHING_CONSTATS } from "../constants/caching-constans";
 import { getExperienceData } from "../firebase/firebase-util";
+import StatsigEvent from "@/app/components/statsig-event";
 
 export const metadata = {
   title: "Experience",
@@ -28,13 +29,18 @@ export default async function ExperiencePage() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
-      {experiences?.map((experience) => (
-        <ExperienceComponent
-          experience={experience}
-          key={experience.companyName}
-        />
-      ))}
-    </div>
+      <>
+        <StatsigEvent eventName="portfolio_pv_experience" metadata={{page: "experience"}}/>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
+          {experiences?.map((experience) => (
+              <ExperienceComponent
+                  experience={experience}
+                  key={experience.companyName}
+              />
+          ))}
+        </div>
+      </>
+
   );
 }

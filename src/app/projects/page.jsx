@@ -2,6 +2,7 @@ import { unstable_cache } from "next/cache";
 import ProjectComponent from "../components/project-component";
 import { CACHING_CONSTATS } from "../constants/caching-constans";
 import { getProjectsData } from "../firebase/firebase-util";
+import StatsigEvent from "@/app/components/statsig-event";
 
 export const dynamic = "force-dynamic";
 
@@ -30,10 +31,15 @@ export default async function ProjectsPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-5 p-5">
-      {projects?.map((project) => (
-        <ProjectComponent project={project} key={project.name} />
-      ))}
-    </div>
+      <>
+        <StatsigEvent eventName="portfolio_pv_projects" metadata={{page: "projects"}}/>
+
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-5 p-5">
+          {projects?.map((project) => (
+              <ProjectComponent project={project} key={project.name} />
+          ))}
+        </div>
+      </>
+
   );
 }
