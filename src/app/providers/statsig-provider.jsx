@@ -1,6 +1,7 @@
 "use client";
 
 import {StatsigProvider} from "@statsig/react-bindings";
+import {StatsigAutoCapturePlugin} from '@statsig/web-analytics';
 import {useEffect, useState} from "react";
 
 import {getBrowserUserId, getBrowserUserInfo} from "@/app/_lib/statsig-util";
@@ -34,6 +35,7 @@ export default function StatsigProviderWrapper({children}) {
             sdkKey={process.env.NEXT_PUBLIC_STATSIG_CLIENT_KEY}
             user={user}
             waitForInitialization={true}
+            options={{plugins: [new StatsigAutoCapturePlugin()]}}
         >
             {children}
         </StatsigProvider>
