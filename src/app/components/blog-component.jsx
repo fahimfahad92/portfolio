@@ -5,32 +5,32 @@ export default function BlogComponent({ blog }) {
   const formattedDate = formatDate(blog.publishDate);
 
   return (
-    <Link href={blog.link} target="_blank" className="block">
-      <div className="bg-white rounded-xl shadow-md font-serif p-5 flex flex-col space-y-4 transition transform hover:scale-105 hover:shadow-lg duration-300">
-        {/* Title Section */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-lg p-4 text-center">
-          <h2 className="font-bold text-base lg:text-xl">{blog.title}</h2>
-          {formattedDate ? (
-            <p className="text-xs lg:text-sm text-gray-300 mt-1">
-              ({formattedDate})
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
+      <Link href={blog.link} target="_blank" className="block">
+        <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col space-y-4 hover:shadow-md transition-shadow duration-200">
 
-        {/* Tags Section */}
-        <div className="flex flex-wrap justify-center gap-2">
-          {blog.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full shadow-sm bg-gray-800 text-white px-4 py-1 text-xs sm:text-sm uppercase tracking-wide transition duration-200 hover:bg-gray-900"
-            >
+          {/* Title Section */}
+          <div className="bg-gray-900 text-white rounded-lg p-4 text-center">
+            <h2 className="font-bold text-base lg:text-lg leading-snug">
+              {blog.title}
+            </h2>
+            {formattedDate && (
+                <p className="text-xs text-gray-400 mt-1">{formattedDate}</p>
+            )}
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {blog.tags.map((tag) => (
+                <span
+                    key={tag}
+                    className="rounded-full bg-blue-50 text-blue-700 border border-blue-200 px-3 py-0.5 text-xs font-medium uppercase tracking-wide"
+                >
               {tag}
             </span>
-          ))}
+            ))}
+          </div>
+
         </div>
-      </div>
-    </Link>
+      </Link>
   );
 }
