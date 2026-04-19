@@ -1,7 +1,7 @@
 import ItemComponent from "@/app/components/item-component";
 import LinkComponent from "@/app/components/link-component";
 import ListComponent from "@/app/components/list-component";
-import { CACHING_CONSTATS } from "@/app/constants/caching-constans";
+import { CACHING_CONSTANTS } from "@/app/constants/caching-constants";
 import { getProjectDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
 import { getProjects } from "../page";
@@ -15,7 +15,7 @@ const getProjectDetails = unstable_cache(
         return await getProjectDetailsData(projectName);
     },
     [projectName],
-    { revalidate: CACHING_CONSTATS.DEFAUT, tags: [projectName] }
+    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: [projectName] }
 );
 
 export async function generateStaticParams() {

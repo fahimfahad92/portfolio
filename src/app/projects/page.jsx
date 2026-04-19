@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import ProjectComponent from "../components/project-component";
-import { CACHING_CONSTATS } from "../constants/caching-constans";
+import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getProjectsData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
@@ -16,7 +16,7 @@ export const getProjects = unstable_cache(
     return await getProjectsData();
   },
   ["projects"],
-  { revalidate: CACHING_CONSTATS.SEVEN_DAY, tags: ["projects"] }
+  { revalidate: CACHING_CONSTANTS.SEVEN_DAY, tags: ["projects"] }
 );
 
 export default async function ProjectsPage() {

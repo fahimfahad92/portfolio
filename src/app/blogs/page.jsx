@@ -1,6 +1,6 @@
 import {unstable_cache} from "next/cache";
 import BlogComponent from "../components/blog-component";
-import {CACHING_CONSTATS} from "../constants/caching-constans";
+import {CACHING_CONSTANTS} from "../constants/caching-constants";
 import {getBlogData} from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
@@ -17,7 +17,7 @@ const getBlogs = unstable_cache(
         return await getBlogData();
     },
     ["blogs"],
-    {revalidate: CACHING_CONSTATS.ONE_DAY, tags: ["blogs"]}
+    {revalidate: CACHING_CONSTANTS.ONE_DAY, tags: ["blogs"]}
 );
 
 export default async function BlogsPage() {

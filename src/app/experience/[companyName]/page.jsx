@@ -1,7 +1,7 @@
 import ItemComponent from "@/app/components/item-component";
 import ListComponent from "@/app/components/list-component";
 import MapComponent from "@/app/components/map-component";
-import { CACHING_CONSTATS } from "@/app/constants/caching-constans";
+import { CACHING_CONSTANTS } from "@/app/constants/caching-constants";
 import { getExperienceDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
 import { getExperience } from "../page";
@@ -15,7 +15,7 @@ const getExperienceDetails = unstable_cache(
         return await getExperienceDetailsData(companyName);
     },
     [companyName],
-    { revalidate: CACHING_CONSTATS.DEFAUT, tags: [companyName] }
+    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: [companyName] }
 );
 
 export async function generateStaticParams() {
