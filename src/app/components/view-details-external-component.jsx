@@ -1,13 +1,16 @@
-import { ArrowOutwardIcon } from "@/app/components/icons/common-icons";
 import Link from "next/link";
+import { ArrowOutwardIcon } from "@/app/components/icons/common-icons";
 
 export default function ViewDetailsExternal({ href }) {
-  return (
-    <div className="flex flex-wrap max-w-fit rounded shadow bg-slate-500 hover:text-gray-300 text-white px-2 py-1 text-sm">
-      <Link href={href} target="_blank" className="flex items-center space-x-1">
-        <span>Demo</span>
-        <ArrowOutwardIcon />
-      </Link>
-    </div>
-  );
+    return (
+        <Link
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200"
+        >
+            Demo
+            <ArrowOutwardIcon size={14} />
+        </Link>
+    );
 }

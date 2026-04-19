@@ -1,80 +1,79 @@
 import ViewDetails from "@/app/components/view-details-component";
-import { ROUTING_CONSTANTS } from "../constants/routing-constants";
+import {ROUTING_CONSTANTS} from "../constants/routing-constants";
+import TagPill from "@/app/components/tag-pill";
+import SectionLabel from "@/app/components/section-label";
 
-export default function ExperienceComponent({ experience }) {
-  return (
-    <div
-      className="bg-gray-100 rounded-xl shadow-md font-serif p-4 flex flex-col gap-2"
-      key={experience.companyName}
-    >
-      <div className="font-bold text-lg sm:text-base lg:text-xl">
-        {experience.position}
-      </div>
-      <div className="text-base sm:text-sm lg:text-lg text-gray-700">
-        {experience.displayName}
-      </div>
-      <div className="text-sm text-gray-600">{experience.timeline}</div>
-      <div className="text-sm text-gray-600">
-        {experience.address}
-        <span className="font-medium">({experience.jobType})</span>
-      </div>
 
-      {/* Tech Stack */}
-      {experience.techStack.length > 0 && (
-        <div>
-          <div className="font-medium pt-3">Primary Tech Stack</div>
-          <div className="flex flex-wrap gap-2 mt-1">
-            {experience.techStack.map((tech) => (
-              <span
-                className="rounded-lg shadow-sm bg-black text-white px-2 py-1 text-xs sm:text-sm"
-                key={tech}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+export default function ExperienceComponent({experience}) {
+    return (
+        <div
+            className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-1 hover:shadow-md transition-shadow duration-200">
 
-      {/* Related Projects */}
-      {experience.projects && Object.keys(experience.projects).length > 0 && (
-        <div>
-          <div className="font-medium pt-3">Related Projects</div>
-          <div className="flex flex-wrap gap-2 mt-1">
-            {Object.entries(experience.projects).map(
-              ([projectName, projectDisplayName]) => (
-                <span
-                  className="rounded-lg shadow-sm bg-black text-white px-2 py-1 text-xs sm:text-sm"
-                  key={projectName}
-                >
-                  {projectDisplayName}
-                </span>
-              )
+            {/* Position */}
+            <h2 className="font-bold text-base lg:text-lg text-gray-900 leading-snug">
+                {experience.position}
+            </h2>
+
+            {/* Company */}
+            <p className="text-sm font-medium text-gray-700">
+                {experience.displayName}
+            </p>
+
+            {/* Timeline · Job type */}
+            <p className="text-xs text-gray-500">
+                {experience.timeline}
+                {experience.jobType && (
+                    <span className="ml-1.5 text-gray-400">· {experience.jobType}</span>
+                )}
+            </p>
+
+            {/* Address */}
+            {experience.address && (
+                <p className="text-xs text-gray-400">{experience.address}</p>
             )}
-          </div>
-        </div>
-      )}
 
-      {/* Companies */}
-      {experience.companies && experience.companies.length > 0 && (
-        <div>
-          <div className="font-medium pt-3">Companies</div>
-          <div className="flex flex-wrap gap-2 mt-1">
-            {experience.companies.map((company) => (
-              <span
-                className="rounded-lg shadow-sm bg-black text-white px-2 py-1 text-xs sm:text-sm"
-                key={company}
-              >
-                {company}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+            {/* Tech Stack */}
+            {experience.techStack?.length > 0 && (
+                <div>
+                    <SectionLabel>Tech Stack</SectionLabel>
+                    <div className="flex flex-wrap gap-1.5">
+                        {experience.techStack.map((tech) => (
+                            <TagPill key={tech} label={tech}/>
+                        ))}
+                    </div>
+                </div>
+            )}
 
-      <ViewDetails
-        href={`${ROUTING_CONSTANTS.EXPERIENCE}/${experience.companyName}`}
-      />
-    </div>
-  );
+            {/* Related Projects */}
+            {experience.projects && Object.keys(experience.projects).length > 0 && (
+                <div>
+                    <SectionLabel>Related Projects</SectionLabel>
+                    <div className="flex flex-wrap gap-1.5">
+                        {Object.entries(experience.projects).map(([name, displayName]) => (
+                            <TagPill key={name} label={displayName}/>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Companies */}
+            {experience.companies?.length > 0 && (
+                <div>
+                    <SectionLabel>Companies</SectionLabel>
+                    <div className="flex flex-wrap gap-1.5">
+                        {experience.companies.map((company) => (
+                            <TagPill key={company} label={company}/>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* CTA */}
+            <div className="mt-auto pt-4">
+                <ViewDetails
+                    href={`${ROUTING_CONSTANTS.EXPERIENCE}/${experience.companyName}`}
+                />
+            </div>
+        </div>
+    );
 }
