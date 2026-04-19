@@ -1,10 +1,12 @@
 import Link from "next/link";
 import {getEducationData} from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
+import {ArrowOutwardIcon} from "../components/icons/common-icons";
 
 export const metadata = {
-    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
-    description: "10 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+    title: "Education | Fahim Fahad",
+    description:
+        "Academic background in Computer Science and Engineering, including publications in software research.",
 };
 
 export const dynamic = "force-static";
@@ -16,52 +18,82 @@ export default async function EducationPage() {
         <>
             <StatsigEvent eventName="portfolio_education" metadata={{page: "education"}}/>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
-                {education?.map((educationData) => (
-                    <div
-                        className="bg-gray-100 rounded-xl shadow-md font-serif p-4 flex flex-col gap-3"
-                        key={educationData.degree}
-                    >
-                        <div className="font-bold text-lg text-gray-800">
-                            {educationData.universityName}
-                        </div>
-                        <div className="font-semibold text-base">{educationData.degree}</div>
-                        <div className="text-sm text-gray-600">
-                            Session: {educationData.session}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                            CGPA: {educationData.cgpa}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                            Position: {educationData.position}
-                        </div>
-
-                        {/* Publication Section */}
-                        {educationData.publicationTitle && (
-                            <div className="bg-gray-200 rounded-lg shadow p-3 flex flex-col gap-2 mt-4">
-                                <div className="font-semibold text-gray-700">Publication</div>
-                                <div className="font-bold text-gray-900">
-                                    {educationData.publicationTitle}
-                                </div>
-                                <div className="text-sm text-gray-600">
-                                    {educationData.publisherName} · {educationData.publicationDate}
-                                </div>
-                                <div className="text-sm text-gray-700">
-                                    {educationData.publicationDetail}
-                                </div>
-                                <Link
-                                    href={educationData.publicationLink}
-                                    target="_blank"
-                                    className="inline-block w-fit rounded-md shadow bg-slate-600 text-white px-3 py-1 text-sm transition hover:bg-slate-700"
-                                >
-                                    View on Publication Site
-                                </Link>
+            <div className="max-w-4xl mx-auto px-4 py-10">
+                <div className="flex flex-col gap-5">
+                    {education?.map((ed) => (
+                        <div
+                            key={ed.degree}
+                            className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200"
+                        >
+                            {/* Card header */}
+                            <div className="bg-gray-900 text-white px-6 py-5">
+                                <h2 className="text-lg font-bold leading-snug">{ed.universityName}</h2>
+                                <p className="text-sm text-gray-300 mt-1">{ed.degree}</p>
                             </div>
-                        )}
-                    </div>
-                ))}
+
+                            {/* Card body */}
+                            <div className="px-6 py-5 flex flex-col gap-4">
+
+                                {/* Meta row */}
+                                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                                    {ed.session && (
+                                        <div>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Session</p>
+                                            <p className="text-sm text-gray-700 mt-0.5">{ed.session}</p>
+                                        </div>
+                                    )}
+                                    {ed.cgpa && (
+                                        <div>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">CGPA</p>
+                                            <p className="text-sm text-gray-700 mt-0.5">{ed.cgpa}</p>
+                                        </div>
+                                    )}
+                                    {ed.position && (
+                                        <div>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Class
+                                                position</p>
+                                            <p className="text-sm text-gray-700 mt-0.5">{ed.position}</p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Publication */}
+                                {ed.publicationTitle && (
+                                    <div
+                                        className="border border-gray-200 rounded-lg p-4 flex flex-col gap-2 bg-gray-50">
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                                            Publication
+                                        </p>
+                                        <p className="text-sm font-semibold text-gray-900 leading-snug">
+                                            {ed.publicationTitle}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            {ed.publisherName}
+                                            {ed.publicationDate && ` · ${ed.publicationDate}`}
+                                        </p>
+                                        {ed.publicationDetail && (
+                                            <p className="text-sm text-gray-600 leading-relaxed">
+                                                {ed.publicationDetail}
+                                            </p>
+                                        )}
+                                        {ed.publicationLink && (
+                                            <Link
+                                                href={ed.publicationLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-1 w-fit text-sm font-medium text-gray-700 border border-gray-300 rounded-lg px-3 py-1.5 hover:bg-gray-100 transition-colors duration-200 mt-1"
+                                            >
+                                                View publication
+                                                <ArrowOutwardIcon size={14}/>
+                                            </Link>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </>
-
     );
 }

@@ -1,36 +1,26 @@
+import SectionLabel from "./section-label";
+import TagPill from "./tag-pill";
 import ViewDetails from "./view-details-component";
 
 export default function MapComponent({ title, mapData, isLink, linkPrefix }) {
-  if (isLink) {
+    if (!mapData || Object.keys(mapData).length === 0) return null;
+
     return (
-      <>
-        <div className="pt-3">{title}</div>
-        <div className="flex flex-row space-x-2 ">
-          {Object.entries(mapData).map(([key, value]) => (
-            <ViewDetails
-              href={`/${linkPrefix}/${key}`}
-              placeholder={value}
-              key={key}
-            />
-          ))}
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div className="pt-3">{title}</div>
-        <div className="space-x-2 space-y-2">
-          {Object.entries(mapData).map(([key, value]) => (
-            <div
-              className="inline-block rounded shadow bg-black text-white px-1 py-1 text-sm"
-              key={key}
-            >
-              {value}
+        <div>
+            <SectionLabel>{title}</SectionLabel>
+            <div className="flex flex-wrap gap-1.5">
+                {Object.entries(mapData).map(([key, value]) =>
+                    isLink ? (
+                        <ViewDetails
+                            key={key}
+                            href={`/${linkPrefix}/${key}`}
+                            placeholder={value}
+                        />
+                    ) : (
+                        <TagPill key={key} label={value} />
+                    )
+                )}
             </div>
-          ))}
         </div>
-      </>
     );
-  }
 }

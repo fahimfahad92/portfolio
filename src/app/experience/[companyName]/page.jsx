@@ -1,11 +1,12 @@
 import ItemComponent from "@/app/components/item-component";
 import ListComponent from "@/app/components/list-component";
 import MapComponent from "@/app/components/map-component";
-import {CACHING_CONSTATS} from "@/app/constants/caching-constans";
-import {getExperienceDetailsData} from "@/app/firebase/firebase-util";
-import {unstable_cache} from "next/cache";
-import {getExperience} from "../page";
+import { CACHING_CONSTATS } from "@/app/constants/caching-constans";
+import { getExperienceDetailsData } from "@/app/firebase/firebase-util";
+import { unstable_cache } from "next/cache";
+import { getExperience } from "../page";
 import StatsigEvent from "@/app/components/statsig-event";
+import Link from "next/link";
 
 let companyName = "";
 
@@ -14,97 +15,127 @@ const getExperienceDetails = unstable_cache(
         return await getExperienceDetailsData(companyName);
     },
     [companyName],
-    {revalidate: CACHING_CONSTATS.DEFAUT, tags: [companyName]}
+    { revalidate: CACHING_CONSTATS.DEFAUT, tags: [companyName] }
 );
 
 export async function generateStaticParams() {
     const experiences = await getExperience();
-
     return experiences.map((experience) => ({
         experienceDetails: getExperienceDetails(experience.companyName),
     }));
 }
 
-export default async function CompanyDetailPage({params}) {
+export default async function CompanyDetailPage({ params }) {
     companyName = (await params).companyName;
-    const experienceDetails = await getExperienceDetails(companyName);
+    const d = await getExperienceDetails(companyName);
 
-    if (!experienceDetails) {
+    if (!d) {
         return (
-            <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
-                Experience details not found
+            <div className="text-gray-500 text-center py-20">
+                Experience details not found.
             </div>
         );
     }
 
     return (
         <>
-            <StatsigEvent eventName="portfolio_pv_experience_details" metadata={{company: experienceDetails.displayName}}/>
+            <StatsigEvent
+                eventName="portfolio_pv_experience_details"
+                metadata={{ company: d.displayName }}
+            />
 
-            <div className="grid grid-cols-1 gap-6 p-6 font-serif text-gray-800">
-                {/* Experience Overview */}
-                <div className="bg-white rounded-lg shadow-md p-5 space-y-3">
-                    <h2 className="font-bold text-lg lg:text-xl">
-                        {experienceDetails.position}
-                    </h2>
-                    <p className="text-sm lg:text-base">{experienceDetails.displayName}</p>
-                    <p className="text-gray-600 text-sm">{experienceDetails.timeline}</p>
-                    <p className="text-gray-700 text-sm">
-                        {experienceDetails.address}
-                        <span className="font-semibold">({experienceDetails.jobType})</span>
-                    </p>
+            <div className="max-w-3xl mx-auto px-4 py-10 flex flex-col gap-5">
 
-                    {/* Tech Stack Section */}
-                    <ItemComponent title="Tech Stack" items={experienceDetails.techStack}/>
+                {/* ── Back link ── */}
+                <Link
+                    href="/experience"
+                    className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors w-fit"
+                >
+                    ← Back to Experience
+                </Link>
 
-                    {/* Related Projects */}
-                    {experienceDetails.projects && Object.keys(experienceDetails.projects).length > 0 && (
-                        <MapComponent
-                            title="Related Projects"
-                            mapData={experienceDetails.projects}
-                            isLink={true}
-                            linkPrefix={"projects"}
-                        />
-                    )}
+                {/* ── Overview card ── */}
+                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    {/* Header banner */}
+                    <div className="bg-gray-900 text-white px-6 py-6">
+                        <h1 className="text-xl font-bold leading-snug">{d.position}</h1>
+                        <p className="text-gray-300 text-sm mt-1">{d.displayName}</p>
+                    </div>
 
-                    {/* Companies */}
-                    {experienceDetails.companies && (
-                        <MapComponent
-                            title="Companies"
-                            mapData={experienceDetails.companies}
-                            isLink={true}
-                            linkPrefix={"experience"}
-                        />
-                    )}
+                    {/* Meta */}
+                    <div className="px-6 py-5 flex flex-col gap-4">
+                        <div className="flex flex-wrap gap-x-6 gap-y-3">
+                            {d.timeline && (
+                                <div>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Timeline</p>
+                                    <p className="text-sm text-gray-700 mt-0.5">{d.timeline}</p>
+                                </div>
+                            )}
+                            {d.jobType && (
+                                <div>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Type</p>
+                                    <p className="text-sm text-gray-700 mt-0.5">{d.jobType}</p>
+                                </div>
+                            )}
+                            {d.address && (
+                                <div>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Location</p>
+                                    <p className="text-sm text-gray-700 mt-0.5">{d.address}</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {d.techStack?.length > 0 && (
+                            <ItemComponent title="Tech Stack" items={d.techStack} />
+                        )}
+
+                        {d.projects && Object.keys(d.projects).length > 0 && (
+                            <MapComponent
+                                title="Related Projects"
+                                mapData={d.projects}
+                                isLink={true}
+                                linkPrefix="projects"
+                            />
+                        )}
+
+                        {d.companies && Object.keys(d.companies).length > 0 && (
+                            <MapComponent
+                                title="Companies"
+                                mapData={d.companies}
+                                isLink={true}
+                                linkPrefix="experience"
+                            />
+                        )}
+                    </div>
                 </div>
 
-                {/* Description Section */}
-                {experienceDetails.description && (
-                    <div className="bg-gray-100 rounded-lg shadow-sm p-4">
-                        <h3 className="font-semibold text-gray-800">Description</h3>
-                        <p className="text-sm text-gray-700">
-                            {experienceDetails.description}
+                {/* ── Description ── */}
+                {d.description && (
+                    <div className="bg-white border border-gray-200 rounded-xl px-6 py-5">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                            Overview
                         </p>
+                        <p className="text-sm text-gray-700 leading-relaxed">{d.description}</p>
                     </div>
                 )}
 
-                {/* Responsibilities */}
-                {experienceDetails.primaryResponsibility && (
+                {/* ── Responsibilities ── */}
+                {d.primaryResponsibility?.length > 0 && (
                     <ListComponent
                         title="Primary Responsibilities"
-                        listData={experienceDetails.primaryResponsibility}
+                        listData={d.primaryResponsibility}
                     />
                 )}
 
-                {/* Achievements */}
-                {experienceDetails.mentionableAchievement && (
+                {/* ── Achievements ── */}
+                {d.mentionableAchievement?.length > 0 && (
                     <ListComponent
                         title="Mentionable Achievements"
-                        listData={experienceDetails.mentionableAchievement}
+                        listData={d.mentionableAchievement}
                     />
                 )}
+
             </div>
         </>
-
     );
 }
