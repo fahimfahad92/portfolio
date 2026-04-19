@@ -58,7 +58,7 @@ export default async function CompanyDetailPage({params}) {
                     <ItemComponent title="Tech Stack" items={experienceDetails.techStack}/>
 
                     {/* Related Projects */}
-                    {experienceDetails.projects && (
+                    {experienceDetails.projects && Object.keys(experienceDetails.projects).length > 0 && (
                         <MapComponent
                             title="Related Projects"
                             mapData={experienceDetails.projects}

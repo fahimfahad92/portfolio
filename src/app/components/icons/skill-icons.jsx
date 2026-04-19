@@ -1,22 +1,30 @@
 import { FaJava, FaAws, FaReact } from "react-icons/fa6";
 import { SiSpringboot, SiNextdotjs } from "react-icons/si";
 
-export function JavaIcon({ size = 20 }) {
-  return <FaJava size={size} />;
+function SkillIcon({ icon: Icon, className = "" }) {
+  return (
+      <span className={`flex items-center justify-center ${className}`}>
+      <Icon className="w-full h-full" />
+    </span>
+  );
 }
 
-export function SpringBootIcon({ size = 20 }) {
-  return <SiSpringboot size={size} />;
+export function JavaIcon({ className }) {
+  return <SkillIcon icon={FaJava} className={className} />;
 }
 
-export function AwsIcon({ size = 20 }) {
-  return <FaAws size={size} />;
+export function SpringBootIcon({ className }) {
+  return <SkillIcon icon={SiSpringboot} className={className} />;
 }
 
-export function ReactIcon({ size = 20 }) {
-  return <FaReact size={size} />;
+export function AwsIcon({ className }) {
+  return <SkillIcon icon={FaAws} className={className} />;
 }
 
-export function NextIcon({ size = 20 }) {
-  return <SiNextdotjs size={size} />;
+export function ReactIcon({ className }) {
+  return <SkillIcon icon={FaReact} className={className} />;
+}
+
+export function NextIcon({ className }) {
+  return <SkillIcon icon={SiNextdotjs} className={className} />;
 }

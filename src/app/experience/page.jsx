@@ -5,8 +5,8 @@ import { getExperienceData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
 export const metadata = {
-  title: "Experience",
-  description: "Fahim Fahad",
+    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
+    description: "10 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
 };
 
 export const getExperience = unstable_cache(

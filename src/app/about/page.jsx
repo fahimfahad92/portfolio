@@ -2,8 +2,8 @@ import ProfileImageComponent from "../components/profile-component";
 import StatsigEvent from "@/app/components/statsig-event";
 
 export const metadata = {
-    title: "Sayed MD Fahim Fahad",
-    description: "Software Engineer @ Toptal",
+    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
+    description: "10 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
 };
 
 export default function AboutMePage() {
