@@ -1,17 +1,17 @@
+import TagPill from "./tag-pill";
+import SectionLabel from "./section-label";
+
 export default function ItemComponent({ title, items }) {
-  return (
-    <>
-      <div className="pt-1">{title}</div>
-      <div className="space-x-1 space-y-2">
-        {items.map((item) => (
-          <div
-            className="inline-block rounded shadow bg-black text-white px-1 py-1 text-sm"
-            key={item}
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-    </>
-  );
+    if (!items?.length) return null;
+
+    return (
+        <div>
+            <SectionLabel>{title}</SectionLabel>
+            <div className="flex flex-wrap gap-1.5">
+                {items.map((item) => (
+                    <TagPill key={item} label={item} />
+                ))}
+            </div>
+        </div>
+    );
 }

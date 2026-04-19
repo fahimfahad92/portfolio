@@ -2,21 +2,22 @@ import ViewDetails from "./view-details-component";
 import ViewDetailsExternal from "./view-details-external-component";
 
 export default function LinkComponent({
-  link,
-  internal = false,
-  external = false,
-}) {
-  if (internal && link) {
-    return <ViewDetails href={link} />;
-  }
+                                          link,
+                                          internal = false,
+                                          external = false,
+                                      }) {
+    if (internal && link) {
+        return <ViewDetails href={link}/>;
+    }
 
-  if (external && link) {
-    return <ViewDetailsExternal href={link} />;
-  }
+    if (external && link) {
+        return <ViewDetailsExternal href={link}/>;
+    }
 
-  return (
-    <div className="flex flex-wrap max-w-fit rounded shadow bg-slate-500 text-white px-2 py-1 text-sm items-center">
-      <span>Demo Not Available (Internal)</span>
-    </div>
-  );
+    return (
+        <span
+            className="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium text-gray-400 border border-gray-200 cursor-default select-none">
+      Demo not available
+    </span>
+    );
 }

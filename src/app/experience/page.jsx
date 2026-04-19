@@ -1,12 +1,12 @@
 import { unstable_cache } from "next/cache";
 import ExperienceComponent from "../components/experience-component";
-import { CACHING_CONSTATS } from "../constants/caching-constans";
+import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getExperienceData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
 export const metadata = {
-  title: "Experience",
-  description: "Fahim Fahad",
+    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
+    description: "10 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
 };
 
 export const getExperience = unstable_cache(
@@ -14,7 +14,7 @@ export const getExperience = unstable_cache(
     return await getExperienceData();
   },
   ["experience"],
-  { revalidate: CACHING_CONSTATS.SEVEN_DAY, tags: ["experience"] }
+  { revalidate: CACHING_CONSTANTS.SEVEN_DAY, tags: ["experience"] }
 );
 
 export default async function ExperiencePage() {

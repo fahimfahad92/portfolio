@@ -1,28 +1,46 @@
 import ViewDetails from "@/app/components/view-details-component";
-import { ROUTING_CONSTATS } from "../constants/routing-constants";
-import ItemComponent from "./item-component";
+import { ROUTING_CONSTANTS } from "../constants/routing-constants";
 import LinkComponent from "./link-component";
+import TagPill from "@/app/components/tag-pill";
+import SectionLabel from "@/app/components/section-label";
+
 
 export default function ProjectComponent({ project }) {
-  return (
-    <div className="bg-white rounded-lg shadow-md font-serif p-4 flex flex-col space-y-1">
-      {/* Project Title */}
-      <h2 className="font-bold text-lg md:text-xl">{project.displayName}</h2>
+    return (
+        <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-1 hover:shadow-md transition-shadow duration-200">
 
-      {/* Company Name & Timeline */}
-      <p className="text-sm md:text-base text-gray-700">
-        {project.companyName}
-        <span className="font-medium text-gray-600">({project.timeline})</span>
-      </p>
+            {/* Title */}
+            <h2 className="font-bold text-base lg:text-lg text-gray-900 leading-snug">
+                {project.displayName}
+            </h2>
 
-      {/* Tech Stack */}
-      <ItemComponent title="Primary Tech Stack" items={project.techStack} />
+            {/* Company · Timeline */}
+            <p className="text-sm font-medium text-gray-700">
+                {project.companyName}
+                {project.timeline && (
+                    <span className="ml-1.5 text-xs text-gray-400 font-normal">
+            · {project.timeline}
+          </span>
+                )}
+            </p>
 
-      {/* Links Section */}
-      <div className="flex flex-wrap gap-3 pt-2">
-        <LinkComponent link={project.link} external={true} />
-        <ViewDetails href={`${ROUTING_CONSTATS.PROJECTS}/${project.name}`} />
-      </div>
-    </div>
-  );
+            {/* Tech Stack */}
+            {project.techStack?.length > 0 && (
+                <div>
+                    <SectionLabel>Tech Stack</SectionLabel>
+                    <div className="flex flex-wrap gap-1.5">
+                        {project.techStack.map((tech) => (
+                            <TagPill key={tech} label={tech} />
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* CTAs */}
+            <div className="mt-auto pt-4 flex flex-wrap gap-2">
+                <LinkComponent link={project.link} external={true} />
+                <ViewDetails href={`${ROUTING_CONSTANTS.PROJECTS}/${project.name}`} />
+            </div>
+        </div>
+    );
 }

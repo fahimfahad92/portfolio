@@ -1,36 +1,47 @@
 import Link from "next/link";
-import { formatDate } from "../_lib/date-util";
+import {formatDate} from "../_lib/date-util";
+import {ArrowOutwardIcon} from "./icons/common-icons";
 
-export default function BlogComponent({ blog }) {
-  const formattedDate = formatDate(blog.publishDate);
+export default function BlogComponent({blog}) {
+    const formattedDate = formatDate(blog.publishDate);
 
-  return (
-    <Link href={blog.link} target="_blank" className="block">
-      <div className="bg-white rounded-xl shadow-md font-serif p-5 flex flex-col space-y-4 transition transform hover:scale-105 hover:shadow-lg duration-300">
-        {/* Title Section */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-lg p-4 text-center">
-          <h2 className="font-bold text-base lg:text-xl">{blog.title}</h2>
-          {formattedDate ? (
-            <p className="text-xs lg:text-sm text-gray-300 mt-1">
-              ({formattedDate})
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
+    return (
+        <Link href={blog.link} target="_blank" rel="noopener noreferrer" className="block group">
+            <div
+                className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-3 h-full hover:shadow-md hover:border-gray-300 transition-all duration-200">
 
-        {/* Tags Section */}
-        <div className="flex flex-wrap justify-center gap-2">
-          {blog.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full shadow-sm bg-gray-800 text-white px-4 py-1 text-xs sm:text-sm uppercase tracking-wide transition duration-200 hover:bg-gray-900"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    </Link>
-  );
+                {/* Title */}
+                <h2 className="text-sm font-semibold text-gray-900 leading-snug group-hover:text-gray-600 transition-colors duration-200 flex-1">
+                    {blog.title}
+                </h2>
+
+                {/* Tags */}
+                {blog.tags?.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                        {blog.tags.map((tag) => (
+                            <span
+                                key={tag}
+                                className="rounded-full bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 text-xs font-medium"
+                            >
+                {tag}
+              </span>
+                        ))}
+                    </div>
+                )}
+
+                {/* Footer row: date + arrow */}
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-100">
+                    {formattedDate ? (
+                        <span className="text-xs text-gray-400">{formattedDate}</span>
+                    ) : (
+                        <span/>
+                    )}
+                    <span className="text-gray-400 group-hover:text-gray-700 transition-colors duration-200">
+            <ArrowOutwardIcon size={14}/>
+          </span>
+                </div>
+
+            </div>
+        </Link>
+    );
 }

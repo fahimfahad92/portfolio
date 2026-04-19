@@ -1,4 +1,4 @@
-export const ROUTING_CONSTATS = {
+export const ROUTING_CONSTANTS = {
   HOME: "/",
   ABOUT_ME: "/about",
   EXPERIENCE: "/experience",
