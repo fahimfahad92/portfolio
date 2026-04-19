@@ -1,5 +1,5 @@
 import {unstable_cache} from "next/cache";
-import {CACHING_CONSTATS} from "../constants/caching-constans";
+import {CACHING_CONSTANTS} from "../constants/caching-constants";
 import {getSkillsData} from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
@@ -15,7 +15,7 @@ const getSkills = unstable_cache(
         return await getSkillsData();
     },
     ["skills"],
-    {revalidate: CACHING_CONSTATS.ONE_DAY, tags: ["skills"]}
+    {revalidate: CACHING_CONSTANTS.ONE_DAY, tags: ["skills"]}
 );
 
 // ─── Skill Bar Row ────────────────────────────────────────────────────────────
@@ -44,7 +44,7 @@ function SkillBar({name, years, maxYears}) {
 
             {/* Years label */}
             <span className="w-14 shrink-0 text-right text-xs text-gray-400">
-                {years} {years == 1 ? "yr" : "yrs"}
+                {years} {years === 1 ? "yr" : "yrs"}
             </span>
         </div>
     );
@@ -55,6 +55,7 @@ function SkillBar({name, years, maxYears}) {
 function SkillGroupCard({group, skillMap}) {
     const entries = Object.entries(skillMap).sort(([, a], [, b]) => b - a);
     const maxYears = entries[0]?.[1] ?? 1;
+    const safeMaxYears = maxYears === 0 ? 1 : maxYears;
 
     return (
         <div
@@ -71,7 +72,7 @@ function SkillGroupCard({group, skillMap}) {
                         key={name}
                         name={name}
                         years={years}
-                        maxYears={maxYears}
+                        maxYears={safeMaxYears}
                     />
                 ))}
             </div>

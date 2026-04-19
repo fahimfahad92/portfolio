@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 
 import Footer from "@/app/footer";
@@ -26,21 +26,21 @@ export const metadata = {
         "8 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({children}) {
     return (
         <html lang="en">
         <head>
-            <link rel="icon" href="/favicon.png" sizes="any" />
+            <link rel="icon" href="/favicon.png" sizes="any"/>
         </head>
         <body
             className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
         >
         <div>
-            {/*<StatsigProviderWrapper>*/}
-                <NavBar />
+            <StatsigProviderWrapper>
+                <NavBar/>
                 <main className="min-h-[87vh] overflow-y-auto">{children}</main>
-                <Footer />
-            {/*</StatsigProviderWrapper>*/}
+                <Footer/>
+            </StatsigProviderWrapper>
         </div>
         </body>
         </html>

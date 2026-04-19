@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ROUTING_CONSTANTS } from "./components/icons/../../../app/constants/routing-constants";
+import { ROUTING_CONSTANTS } from "@/app/constants/routing-constants";
 import {
     EmailIcon,
     GithubIcon,
