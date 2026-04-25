@@ -1,8 +1,9 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 
 import Footer from "@/app/footer";
 import NavBar from "./components/nav-bar";
+import StatsigProviderWrapper from "@/app/providers/statsig-provider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -28,18 +29,21 @@ export const metadata = {
 // Runs before hydration — prevents flash of wrong theme
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&d)){document.documentElement.classList.add('dark')}}catch(e){}})()`;
 
-export default function RootLayout({ children }) {
+export default function RootLayout({children}) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <head>
-                <link rel="icon" href="/favicon.png" sizes="any" />
-                <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-            </head>
-            <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white dark:bg-gray-950 transition-colors duration-300`}>
-                <NavBar />
-                <main className="min-h-[87vh] overflow-y-auto">{children}</main>
-                <Footer />
-            </body>
+        <head>
+            <link rel="icon" href="/favicon.png" sizes="any"/>
+            <script dangerouslySetInnerHTML={{__html: themeScript}}/>
+        </head>
+        <body
+            className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white dark:bg-gray-950 transition-colors duration-300`}>
+        <StatsigProviderWrapper>
+            <NavBar/>
+            <main className="min-h-[87vh] overflow-y-auto">{children}</main>
+            <Footer/>
+        </StatsigProviderWrapper>
+        </body>
         </html>
     );
 }
