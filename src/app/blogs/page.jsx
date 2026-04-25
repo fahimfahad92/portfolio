@@ -4,10 +4,24 @@ import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getBlogData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+
 export const metadata = {
     title: "Blogs | Fahim Fahad",
     description:
         "Technical articles on Java, Spring Boot, AWS, microservices, and software engineering best practices.",
+    openGraph: {
+        title: "Blogs | Fahim Fahad",
+        description: "Technical articles on Java, Spring Boot, AWS, microservices, and software engineering best practices.",
+        url: `${siteUrl}/blogs`,
+        siteName: "Fahim Fahad",
+        type: "website",
+    },
+    twitter: {
+        card: "summary",
+        title: "Blogs | Fahim Fahad",
+        description: "Technical articles on Java, Spring Boot, AWS, microservices, and software engineering best practices.",
+    },
 };
 
 const getBlogs = unstable_cache(

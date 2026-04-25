@@ -9,6 +9,8 @@ import { unstable_cache } from "next/cache";
 import { getExperience } from "../page";
 import StatsigEvent from "@/app/components/statsig-event";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+
 const getExperienceDetails = unstable_cache(
     async (companyName) => {
         return await getExperienceDetailsData(companyName);
@@ -16,6 +18,21 @@ const getExperienceDetails = unstable_cache(
     ["experience-details"],
     { revalidate: CACHING_CONSTANTS.DEFAULT }
 );
+
+export async function generateMetadata({ params }) {
+    const { companyName } = await params;
+    const d = await getExperienceDetails(companyName);
+    const title = d ? `${d.displayName} | Experience | Fahim Fahad` : "Experience | Fahim Fahad";
+    const description = d
+        ? `${d.position} at ${d.displayName}${d.timeline ? ` · ${d.timeline}` : ""}.`
+        : "Experience details";
+    return {
+        title,
+        description,
+        openGraph: { title, description, url: `${siteUrl}/experience/${companyName}`, siteName: "Fahim Fahad", type: "website" },
+        twitter: { card: "summary", title, description },
+    };
+}
 
 export async function generateStaticParams() {
     const experiences = await getExperience();

@@ -17,7 +17,7 @@ const NAV_LINKS = [
 ];
 
 const WRITING_LINKS = [
-    { href: ROUTING_CONSTANTS.BLOGS,                    label: "Blog"   },
+    { href: ROUTING_CONSTANTS.BLOGS,                    label: "Blog"    },
     { href: "https://medium.com/@fahimfahad92",         label: "Medium", external: true },
 ];
 

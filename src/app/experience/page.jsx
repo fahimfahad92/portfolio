@@ -4,9 +4,23 @@ import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getExperienceData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+
 export const metadata = {
     title: "Experience | Fahim Fahad",
     description: "10+ years of experience as a senior software engineer at fintech and SaaS startups. Java, Spring Boot, AWS, microservices.",
+    openGraph: {
+        title: "Experience | Fahim Fahad",
+        description: "10+ years of experience as a senior software engineer at fintech and SaaS startups. Java, Spring Boot, AWS, microservices.",
+        url: `${siteUrl}/experience`,
+        siteName: "Fahim Fahad",
+        type: "website",
+    },
+    twitter: {
+        card: "summary",
+        title: "Experience | Fahim Fahad",
+        description: "10+ years of experience as a senior software engineer at fintech and SaaS startups. Java, Spring Boot, AWS, microservices.",
+    },
 };
 
 export const getExperience = unstable_cache(

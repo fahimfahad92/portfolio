@@ -9,10 +9,24 @@ import {
     LeetCodeIcon,
 } from "../components/icons/social-icons";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+
 export const metadata = {
     title: "About | Fahim Fahad",
     description:
         "Senior software engineer with 10+ years of experience in fintech and SaaS startups. Specialising in Java, Spring Boot, AWS, microservices, and full-stack development.",
+    openGraph: {
+        title: "About | Fahim Fahad",
+        description: "Senior software engineer with 10+ years of experience in fintech and SaaS startups. Specialising in Java, Spring Boot, AWS, microservices, and full-stack development.",
+        url: `${siteUrl}/about`,
+        siteName: "Fahim Fahad",
+        type: "website",
+    },
+    twitter: {
+        card: "summary",
+        title: "About | Fahim Fahad",
+        description: "Senior software engineer with 10+ years of experience in fintech and SaaS startups. Specialising in Java, Spring Boot, AWS, microservices, and full-stack development.",
+    },
 };
 
 const TAGS = ["SaaS", "Fintech", "Startup", "Microservices"];

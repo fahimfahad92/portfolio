@@ -1,8 +1,24 @@
 import Link from "next/link";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+
 export default function DetailPageLayout({ backHref, sectionLabel, currentPage, children }) {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+            { "@type": "ListItem", position: 2, name: sectionLabel, item: `${siteUrl}${backHref}` },
+            { "@type": "ListItem", position: 3, name: currentPage },
+        ],
+    };
+
     return (
         <div className="max-w-3xl mx-auto px-4 py-10 flex flex-col gap-5">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             {/* ── Breadcrumb ── */}
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm">

@@ -4,14 +4,53 @@ import ProfileImageComponent from "./components/profile-component";
 import StatsigEvent from "@/app/components/statsig-event";
 import { SOCIAL_LINKS } from "./constants/social-constants";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+
 export const metadata = {
     title: "Sayed MD Fahim Fahad – Senior Software Engineer",
     description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+    openGraph: {
+        title: "Sayed MD Fahim Fahad – Senior Software Engineer",
+        description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+        url: siteUrl,
+        siteName: "Fahim Fahad",
+        type: "website",
+    },
+    twitter: {
+        card: "summary",
+        title: "Sayed MD Fahim Fahad – Senior Software Engineer",
+        description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+    },
+};
+
+const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Sayed MD Fahim Fahad",
+    jobTitle: "Senior Software Engineer",
+    url: siteUrl,
+    sameAs: [SOCIAL_LINKS.LINKEDIN, SOCIAL_LINKS.GITHUB, SOCIAL_LINKS.MEDIUM],
+};
+
+const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Fahim Fahad – Senior Software Engineer",
+    url: siteUrl,
 };
 
 export default function HomePage() {
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+            />
+
             <StatsigEvent eventName="portfolio_pv_home" metadata={{ page: "home" }} />
 
             <section className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 flex items-center">

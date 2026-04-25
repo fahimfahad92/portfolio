@@ -4,9 +4,23 @@ import { getSkillsData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 import SkillGroupCard from "../components/skill-group-card";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+
 export const metadata = {
     title: "Skills | Fahim Fahad",
     description: "Technical skills across backend, frontend, cloud, and databases — Java, Spring Boot, AWS, React, PostgreSQL, MongoDB, and more.",
+    openGraph: {
+        title: "Skills | Fahim Fahad",
+        description: "Technical skills across backend, frontend, cloud, and databases — Java, Spring Boot, AWS, React, PostgreSQL, MongoDB, and more.",
+        url: `${siteUrl}/skills`,
+        siteName: "Fahim Fahad",
+        type: "website",
+    },
+    twitter: {
+        card: "summary",
+        title: "Skills | Fahim Fahad",
+        description: "Technical skills across backend, frontend, cloud, and databases — Java, Spring Boot, AWS, React, PostgreSQL, MongoDB, and more.",
+    },
 };
 
 const getSkills = unstable_cache(
