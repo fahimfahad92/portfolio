@@ -1,7 +1,6 @@
 # Improvement Ideas — 002
 
-> Status: **Proposal only** — no code changed yet.
-> Review together and pick items step by step.
+> Status: **Done** — all items implemented (skipped 2a OG image, 3a Resume).
 
 ---
 

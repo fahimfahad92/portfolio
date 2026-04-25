@@ -16,7 +16,7 @@ const getProjectDetails = unstable_cache(
         return await getProjectDetailsData(projectName);
     },
     ["project-details"],
-    { revalidate: CACHING_CONSTANTS.DEFAULT }
+    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: ["project-details"] }
 );
 
 export async function generateMetadata({ params }) {

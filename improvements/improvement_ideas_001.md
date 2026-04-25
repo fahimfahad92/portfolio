@@ -1,7 +1,6 @@
 # Improvement Ideas — 001
 
-> Status: **Proposal only** — no code changed yet.
-> We review these together and pick items step by step.
+> Status: **Done** — all phases implemented (Phases 1–4 complete).
 
 ---
 

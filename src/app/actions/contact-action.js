@@ -19,7 +19,7 @@ export async function submitContact({ name, email, message }) {
 
     try {
         await transporter.sendMail({
-            from: `"Portfolio Contact" ${name.trim()}`,
+            from: `"Portfolio Contact" <${name.trim()}>`,
             to: process.env.GMAIL_USER,
             replyTo: `"${name.trim()}" <${email.trim()}>`,
             subject: `Portfolio message from ${name.trim()}`,

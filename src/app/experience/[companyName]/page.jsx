@@ -16,7 +16,7 @@ const getExperienceDetails = unstable_cache(
         return await getExperienceDetailsData(companyName);
     },
     ["experience-details"],
-    { revalidate: CACHING_CONSTANTS.DEFAULT }
+    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: ["experience-details"] }
 );
 
 export async function generateMetadata({ params }) {
