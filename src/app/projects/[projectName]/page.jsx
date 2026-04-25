@@ -1,12 +1,13 @@
 import ItemComponent from "@/app/components/item-component";
 import LinkComponent from "@/app/components/link-component";
 import ListComponent from "@/app/components/list-component";
+import Card from "@/app/components/card";
+import DetailPageLayout from "@/app/components/detail-page-layout";
 import { CACHING_CONSTANTS } from "@/app/constants/caching-constants";
 import { getProjectDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
 import { getProjects } from "../page";
 import StatsigEvent from "@/app/components/statsig-event";
-import Link from "next/link";
 
 const getProjectDetails = unstable_cache(
     async (projectName) => {
@@ -42,18 +43,10 @@ export default async function ProjectDetailPage({ params }) {
                 metadata={{ project: d.displayName }}
             />
 
-            <div className="max-w-3xl mx-auto px-4 py-10 flex flex-col gap-5">
-
-                {/* ── Back link ── */}
-                <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors w-fit"
-                >
-                    ← Back to Projects
-                </Link>
+            <DetailPageLayout backHref="/projects" backLabel="Back to Projects">
 
                 {/* ── Overview card ── */}
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <Card className="overflow-hidden">
                     {/* Header banner */}
                     <div className="bg-gray-900 text-white px-6 py-6">
                         <h1 className="text-xl font-bold leading-snug">{d.displayName}</h1>
@@ -80,16 +73,16 @@ export default async function ProjectDetailPage({ params }) {
                             </div>
                         )}
                     </div>
-                </div>
+                </Card>
 
                 {/* ── Description ── */}
                 {d.description && (
-                    <div className="bg-white border border-gray-200 rounded-xl px-6 py-5">
+                    <Card className="px-6 py-5">
                         <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
                             About this project
                         </p>
                         <p className="text-sm text-gray-700 leading-relaxed">{d.description}</p>
-                    </div>
+                    </Card>
                 )}
 
                 {/* ── Responsibilities ── */}
@@ -105,10 +98,11 @@ export default async function ProjectDetailPage({ params }) {
                     <ListComponent
                         title="Mentionable Achievements"
                         listData={d.mentionableAchievements}
+                        variant="achievement"
                     />
                 )}
 
-            </div>
+            </DetailPageLayout>
         </>
     );
 }

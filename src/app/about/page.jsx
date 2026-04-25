@@ -1,5 +1,6 @@
 import ProfileImageComponent from "../components/profile-component";
 import StatsigEvent from "@/app/components/statsig-event";
+import Card from "../components/card";
 import {
     EmailIcon,
     GithubIcon,
@@ -76,18 +77,15 @@ export default function AboutMePage() {
                 {/* ── Stats row ── */}
                 <div className="grid grid-cols-3 gap-4 mt-5">
                     {STATS.map(({ value, label }) => (
-                        <div
-                            key={label}
-                            className="bg-white border border-gray-200 rounded-xl p-4 text-center"
-                        >
+                        <Card key={label} className="p-4 text-center">
                             <p className="text-2xl font-bold text-gray-900">{value}</p>
                             <p className="text-xs text-gray-500 mt-0.5">{label}</p>
-                        </div>
+                        </Card>
                     ))}
                 </div>
 
                 {/* ── Bio ── */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8 mt-5 flex flex-col gap-4">
+                <Card className="p-6 sm:p-8 mt-5 flex flex-col gap-4">
                     <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
                         About
                     </p>
@@ -108,7 +106,7 @@ export default function AboutMePage() {
                         debugging production issues with root-cause analysis. I've also
                         worked with Oracle, PostgreSQL, MongoDB, and Elasticsearch.
                     </p>
-                </div>
+                </Card>
 
             </div>
         </>

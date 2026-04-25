@@ -1,13 +1,12 @@
 import ViewDetails from "@/app/components/view-details-component";
-import {ROUTING_CONSTANTS} from "../constants/routing-constants";
+import { ROUTING_CONSTANTS } from "../constants/routing-constants";
 import TagPill from "@/app/components/tag-pill";
 import SectionLabel from "@/app/components/section-label";
+import Card from "./card";
 
-
-export default function ExperienceComponent({experience}) {
+export default function ExperienceComponent({ experience }) {
     return (
-        <div
-            className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-1 hover:shadow-md transition-shadow duration-200">
+        <Card className="p-5 flex flex-col gap-1">
 
             {/* Position */}
             <h2 className="font-bold text-base lg:text-lg text-gray-900 leading-snug">
@@ -38,7 +37,7 @@ export default function ExperienceComponent({experience}) {
                     <SectionLabel>Tech Stack</SectionLabel>
                     <div className="flex flex-wrap gap-1.5">
                         {experience.techStack.map((tech) => (
-                            <TagPill key={tech} label={tech}/>
+                            <TagPill key={tech} label={tech} />
                         ))}
                     </div>
                 </div>
@@ -50,7 +49,7 @@ export default function ExperienceComponent({experience}) {
                     <SectionLabel>Related Projects</SectionLabel>
                     <div className="flex flex-wrap gap-1.5">
                         {Object.entries(experience.projects).map(([name, displayName]) => (
-                            <TagPill key={name} label={displayName}/>
+                            <TagPill key={name} label={displayName} />
                         ))}
                     </div>
                 </div>
@@ -62,7 +61,7 @@ export default function ExperienceComponent({experience}) {
                     <SectionLabel>Companies</SectionLabel>
                     <div className="flex flex-wrap gap-1.5">
                         {experience.companies.map((company) => (
-                            <TagPill key={company} label={company}/>
+                            <TagPill key={company} label={company} />
                         ))}
                     </div>
                 </div>
@@ -74,6 +73,6 @@ export default function ExperienceComponent({experience}) {
                     href={`${ROUTING_CONSTANTS.EXPERIENCE}/${experience.companyName}`}
                 />
             </div>
-        </div>
+        </Card>
     );
 }

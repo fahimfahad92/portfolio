@@ -1,7 +1,8 @@
 import Link from "next/link";
-import {getEducationData} from "../firebase/firebase-util";
+import { getEducationData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
-import {ArrowOutwardIcon} from "../components/icons/common-icons";
+import { ArrowOutwardIcon } from "../components/icons/common-icons";
+import Card from "../components/card";
 
 export const metadata = {
     title: "Education | Fahim Fahad",
@@ -16,15 +17,13 @@ export default async function EducationPage() {
 
     return (
         <>
-            <StatsigEvent eventName="portfolio_education" metadata={{page: "education"}}/>
+            <StatsigEvent eventName="portfolio_education" metadata={{ page: "education" }} />
 
             <div className="max-w-4xl mx-auto px-4 py-10">
                 <div className="flex flex-col gap-5">
                     {education?.map((ed) => (
-                        <div
-                            key={ed.degree}
-                            className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200"
-                        >
+                        <Card key={ed.degree} className="overflow-hidden">
+
                             {/* Card header */}
                             <div className="bg-gray-900 text-white px-6 py-5">
                                 <h2 className="text-lg font-bold leading-snug">{ed.universityName}</h2>
@@ -50,8 +49,7 @@ export default async function EducationPage() {
                                     )}
                                     {ed.position && (
                                         <div>
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Class
-                                                position</p>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Class position</p>
                                             <p className="text-sm text-gray-700 mt-0.5">{ed.position}</p>
                                         </div>
                                     )}
@@ -59,8 +57,7 @@ export default async function EducationPage() {
 
                                 {/* Publication */}
                                 {ed.publicationTitle && (
-                                    <div
-                                        className="border border-gray-200 rounded-lg p-4 flex flex-col gap-2 bg-gray-50">
+                                    <div className="border border-gray-200 rounded-lg p-4 flex flex-col gap-2 bg-gray-50">
                                         <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
                                             Publication
                                         </p>
@@ -84,13 +81,13 @@ export default async function EducationPage() {
                                                 className="inline-flex items-center gap-1 w-fit text-sm font-medium text-gray-700 border border-gray-300 rounded-lg px-3 py-1.5 hover:bg-gray-100 transition-colors duration-200 mt-1"
                                             >
                                                 View publication
-                                                <ArrowOutwardIcon size={14}/>
+                                                <ArrowOutwardIcon size={14} />
                                             </Link>
                                         )}
                                     </div>
                                 )}
                             </div>
-                        </div>
+                        </Card>
                     ))}
                 </div>
             </div>

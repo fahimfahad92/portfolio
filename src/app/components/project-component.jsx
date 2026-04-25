@@ -3,11 +3,11 @@ import { ROUTING_CONSTANTS } from "../constants/routing-constants";
 import LinkComponent from "./link-component";
 import TagPill from "@/app/components/tag-pill";
 import SectionLabel from "@/app/components/section-label";
-
+import Card from "./card";
 
 export default function ProjectComponent({ project }) {
     return (
-        <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-1 hover:shadow-md transition-shadow duration-200">
+        <Card className="p-5 flex flex-col gap-1">
 
             {/* Title */}
             <h2 className="font-bold text-base lg:text-lg text-gray-900 leading-snug">
@@ -19,8 +19,8 @@ export default function ProjectComponent({ project }) {
                 {project.companyName}
                 {project.timeline && (
                     <span className="ml-1.5 text-xs text-gray-400 font-normal">
-            · {project.timeline}
-          </span>
+                        · {project.timeline}
+                    </span>
                 )}
             </p>
 
@@ -41,6 +41,6 @@ export default function ProjectComponent({ project }) {
                 <LinkComponent link={project.link} external={true} />
                 <ViewDetails href={`${ROUTING_CONSTANTS.PROJECTS}/${project.name}`} />
             </div>
-        </div>
+        </Card>
     );
 }
