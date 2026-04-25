@@ -1,32 +1,49 @@
 import ItemComponent from "@/app/components/item-component";
 import ListComponent from "@/app/components/list-component";
 import MapComponent from "@/app/components/map-component";
+import Card from "@/app/components/card";
+import DetailPageLayout from "@/app/components/detail-page-layout";
 import { CACHING_CONSTANTS } from "@/app/constants/caching-constants";
 import { getExperienceDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
 import { getExperience } from "../page";
 import StatsigEvent from "@/app/components/statsig-event";
-import Link from "next/link";
 
-let companyName = "";
+import { SITE_URL, SITE_NAME } from "@/app/constants/site-constants";
 
 const getExperienceDetails = unstable_cache(
     async (companyName) => {
         return await getExperienceDetailsData(companyName);
     },
-    [companyName],
-    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: [companyName] }
+    ["experience-details"],
+    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: ["experience-details"] }
 );
+
+export async function generateMetadata({ params }) {
+    const { companyName } = await params;
+    const d = await getExperienceDetails(companyName);
+    const title = d ? `${d.displayName} | Experience | Fahim Fahad` : "Experience | Fahim Fahad";
+    const description = d
+        ? `${d.position} at ${d.displayName}${d.timeline ? ` · ${d.timeline}` : ""}.`
+        : "Experience details";
+    return {
+        title,
+        description,
+        openGraph: { title, description, url: `${SITE_URL}/experience/${companyName}`, siteName: SITE_NAME, type: "website" },
+        alternates: { canonical: `${SITE_URL}/experience/${companyName}` },
+        twitter: { card: "summary", title, description },
+    };
+}
 
 export async function generateStaticParams() {
     const experiences = await getExperience();
     return experiences.map((experience) => ({
-        experienceDetails: getExperienceDetails(experience.companyName),
+        companyName: experience.companyName,
     }));
 }
 
 export default async function CompanyDetailPage({ params }) {
-    companyName = (await params).companyName;
+    const { companyName } = await params;
     const d = await getExperienceDetails(companyName);
 
     if (!d) {
@@ -44,43 +61,37 @@ export default async function CompanyDetailPage({ params }) {
                 metadata={{ company: d.displayName }}
             />
 
-            <div className="max-w-3xl mx-auto px-4 py-10 flex flex-col gap-5">
-
-                {/* ── Back link ── */}
-                <Link
-                    href="/experience"
-                    className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors w-fit"
-                >
-                    ← Back to Experience
-                </Link>
+            <DetailPageLayout
+                backHref="/experience"
+                sectionLabel="Experience"
+                currentPage={d.displayName}
+            >
 
                 {/* ── Overview card ── */}
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                    {/* Header banner */}
-                    <div className="bg-gray-900 text-white px-6 py-6">
+                <Card className="overflow-hidden">
+                    <div className="bg-gray-900 dark:bg-gray-950 text-white px-6 py-6">
                         <h1 className="text-xl font-bold leading-snug">{d.position}</h1>
                         <p className="text-gray-300 text-sm mt-1">{d.displayName}</p>
                     </div>
 
-                    {/* Meta */}
                     <div className="px-6 py-5 flex flex-col gap-4">
                         <div className="flex flex-wrap gap-x-6 gap-y-3">
                             {d.timeline && (
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Timeline</p>
-                                    <p className="text-sm text-gray-700 mt-0.5">{d.timeline}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Timeline</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{d.timeline}</p>
                                 </div>
                             )}
                             {d.jobType && (
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Type</p>
-                                    <p className="text-sm text-gray-700 mt-0.5">{d.jobType}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Type</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{d.jobType}</p>
                                 </div>
                             )}
                             {d.address && (
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Location</p>
-                                    <p className="text-sm text-gray-700 mt-0.5">{d.address}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Location</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{d.address}</p>
                                 </div>
                             )}
                         </div>
@@ -107,16 +118,16 @@ export default async function CompanyDetailPage({ params }) {
                             />
                         )}
                     </div>
-                </div>
+                </Card>
 
                 {/* ── Description ── */}
                 {d.description && (
-                    <div className="bg-white border border-gray-200 rounded-xl px-6 py-5">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                    <Card className="px-6 py-5">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
                             Overview
                         </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">{d.description}</p>
-                    </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{d.description}</p>
+                    </Card>
                 )}
 
                 {/* ── Responsibilities ── */}
@@ -132,10 +143,11 @@ export default async function CompanyDetailPage({ params }) {
                     <ListComponent
                         title="Mentionable Achievements"
                         listData={d.mentionableAchievement}
+                        variant="achievement"
                     />
                 )}
 
-            </div>
+            </DetailPageLayout>
         </>
     );
 }

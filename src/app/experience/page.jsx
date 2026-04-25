@@ -4,9 +4,16 @@ import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getExperienceData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
+import { SITE_URL, SITE_NAME } from "../constants/site-constants";
+
+const desc = "10+ years of experience as a senior software engineer at fintech and SaaS startups. Java, Spring Boot, AWS, microservices.";
+
 export const metadata = {
-    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
-    description: "10 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+    title: `Experience | ${SITE_NAME}`,
+    description: desc,
+    openGraph: { title: `Experience | ${SITE_NAME}`, description: desc, url: `${SITE_URL}/experience`, siteName: SITE_NAME, type: "website" },
+    twitter: { card: "summary", title: `Experience | ${SITE_NAME}`, description: desc },
+    alternates: { canonical: `${SITE_URL}/experience` },
 };
 
 export const getExperience = unstable_cache(

@@ -6,4 +6,5 @@ export const ROUTING_CONSTANTS = {
   BLOGS: "/blogs",
   SKILLS: "/skills",
   EDUCATION: "/education",
+  CONTACT: "/contact",
 };

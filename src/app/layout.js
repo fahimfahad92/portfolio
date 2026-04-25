@@ -23,25 +23,26 @@ export const viewport = {
 export const metadata = {
     title: "Sayed MD Fahim Fahad – Senior Software Engineer",
     description:
-        "8 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+        "10+ years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
 };
+
+// Runs before hydration — prevents flash of wrong theme
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&d)){document.documentElement.classList.add('dark')}}catch(e){}})()`;
 
 export default function RootLayout({children}) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
         <head>
             <link rel="icon" href="/favicon.png" sizes="any"/>
+            <script dangerouslySetInnerHTML={{__html: themeScript}}/>
         </head>
         <body
-            className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
-        >
-        <div>
-            <StatsigProviderWrapper>
-                <NavBar/>
-                <main className="min-h-[87vh] overflow-y-auto">{children}</main>
-                <Footer/>
-            </StatsigProviderWrapper>
-        </div>
+            className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white dark:bg-gray-950 transition-colors duration-300`}>
+        <StatsigProviderWrapper>
+            <NavBar/>
+            <main className="min-h-[87vh] overflow-y-auto">{children}</main>
+            <Footer/>
+        </StatsigProviderWrapper>
         </body>
         </html>
     );

@@ -1,32 +1,49 @@
 import ItemComponent from "@/app/components/item-component";
 import LinkComponent from "@/app/components/link-component";
 import ListComponent from "@/app/components/list-component";
+import Card from "@/app/components/card";
+import DetailPageLayout from "@/app/components/detail-page-layout";
 import { CACHING_CONSTANTS } from "@/app/constants/caching-constants";
 import { getProjectDetailsData } from "@/app/firebase/firebase-util";
 import { unstable_cache } from "next/cache";
 import { getProjects } from "../page";
 import StatsigEvent from "@/app/components/statsig-event";
-import Link from "next/link";
 
-let projectName = "";
+import { SITE_URL, SITE_NAME } from "@/app/constants/site-constants";
 
 const getProjectDetails = unstable_cache(
     async (projectName) => {
         return await getProjectDetailsData(projectName);
     },
-    [projectName],
-    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: [projectName] }
+    ["project-details"],
+    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: ["project-details"] }
 );
+
+export async function generateMetadata({ params }) {
+    const { projectName } = await params;
+    const d = await getProjectDetails(projectName);
+    const title = d ? `${d.displayName} | Projects | Fahim Fahad` : "Projects | Fahim Fahad";
+    const description = d?.description
+        ? `${d.description.slice(0, 155)}…`
+        : "Project details";
+    return {
+        title,
+        description,
+        openGraph: { title, description, url: `${SITE_URL}/projects/${projectName}`, siteName: SITE_NAME, type: "website" },
+        alternates: { canonical: `${SITE_URL}/projects/${projectName}` },
+        twitter: { card: "summary", title, description },
+    };
+}
 
 export async function generateStaticParams() {
     const projects = await getProjects();
     return projects.map((project) => ({
-        projectDetails: getProjectDetails(project.name),
+        projectName: project.name,
     }));
 }
 
 export default async function ProjectDetailPage({ params }) {
-    projectName = (await params).projectName;
+    const { projectName } = await params;
     const d = await getProjectDetails(projectName);
 
     if (!d) {
@@ -44,20 +61,15 @@ export default async function ProjectDetailPage({ params }) {
                 metadata={{ project: d.displayName }}
             />
 
-            <div className="max-w-3xl mx-auto px-4 py-10 flex flex-col gap-5">
-
-                {/* ── Back link ── */}
-                <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors w-fit"
-                >
-                    ← Back to Projects
-                </Link>
+            <DetailPageLayout
+                backHref="/projects"
+                sectionLabel="Projects"
+                currentPage={d.displayName}
+            >
 
                 {/* ── Overview card ── */}
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                    {/* Header banner */}
-                    <div className="bg-gray-900 text-white px-6 py-6">
+                <Card className="overflow-hidden">
+                    <div className="bg-gray-900 dark:bg-gray-950 text-white px-6 py-6">
                         <h1 className="text-xl font-bold leading-snug">{d.displayName}</h1>
                         <p className="text-gray-300 text-sm mt-1">
                             {d.companyName}
@@ -67,7 +79,6 @@ export default async function ProjectDetailPage({ params }) {
                         </p>
                     </div>
 
-                    {/* Meta */}
                     <div className="px-6 py-5 flex flex-col gap-4">
                         {d.techStack?.length > 0 && (
                             <ItemComponent title="Tech Stack" items={d.techStack} />
@@ -75,23 +86,23 @@ export default async function ProjectDetailPage({ params }) {
 
                         {d.link && (
                             <div>
-                                <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
+                                <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
                                     Live link
                                 </p>
                                 <LinkComponent link={d.link} external={true} />
                             </div>
                         )}
                     </div>
-                </div>
+                </Card>
 
                 {/* ── Description ── */}
                 {d.description && (
-                    <div className="bg-white border border-gray-200 rounded-xl px-6 py-5">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                    <Card className="px-6 py-5">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
                             About this project
                         </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">{d.description}</p>
-                    </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{d.description}</p>
+                    </Card>
                 )}
 
                 {/* ── Responsibilities ── */}
@@ -107,10 +118,11 @@ export default async function ProjectDetailPage({ params }) {
                     <ListComponent
                         title="Mentionable Achievements"
                         listData={d.mentionableAchievements}
+                        variant="achievement"
                     />
                 )}
 
-            </div>
+            </DetailPageLayout>
         </>
     );
 }

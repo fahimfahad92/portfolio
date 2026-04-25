@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { ROUTING_CONSTANTS } from "../constants/routing-constants";
+import { SunIcon, MoonIcon } from "./icons/common-icons";
+
+function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle("dark");
+    try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch (e) { /* ignore */ }
+}
 
 const NAV_LINKS = [
     { href: ROUTING_CONSTANTS.HOME, label: "Home" },
@@ -51,10 +58,16 @@ function HamburgerButton({ isOpen, onClick }) {
 
 // ─── Navbar ──────────────────────────────────────────────────────────────────
 
+function isActivePath(pathname, href) {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+}
+
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const navRef = useRef(null);
     const hamburgerRef = useRef(null);
+    const pathname = usePathname();
 
     // Close on click outside
     useEffect(() => {
@@ -104,13 +117,30 @@ export default function Navbar() {
                         <Link
                             key={link.href}
                             href={link.href}
-                            className="hover:text-gray-300 px-3 py-2 rounded transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                            className={[
+                                "px-3 py-2 rounded transition-colors duration-300",
+                                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                                isActivePath(pathname, link.href)
+                                    ? "bg-gray-800 text-white"
+                                    : "text-gray-400 hover:text-white hover:bg-gray-800",
+                            ].join(" ")}
                             aria-label={link.label}
+                            aria-current={isActivePath(pathname, link.href) ? "page" : undefined}
                         >
                             {link.label}
                         </Link>
                     ))}
                 </div>
+
+                {/* Theme toggle — always visible */}
+                <button
+                    onClick={toggleTheme}
+                    aria-label="Toggle dark mode"
+                    className="flex items-center justify-center w-9 h-9 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                    <span className="dark:hidden"><MoonIcon size={18} /></span>
+                    <span className="hidden dark:block"><SunIcon size={18} /></span>
+                </button>
 
                 {/* Hamburger — mobile only, ref used to restore focus on ESC */}
                 <div ref={hamburgerRef} tabIndex={-1}>
@@ -135,8 +165,15 @@ export default function Navbar() {
                             key={link.href}
                             href={link.href}
                             role="menuitem"
-                            className="hover:text-gray-300 py-3 border-b border-gray-800 last:border-b-0 transition-colors duration-300 focus-visible:outline-none focus-visible:text-gray-300"
+                            className={[
+                                "py-3 border-b border-gray-800 last:border-b-0 transition-colors duration-300",
+                                "focus-visible:outline-none focus-visible:text-gray-300",
+                                isActivePath(pathname, link.href)
+                                    ? "text-white"
+                                    : "text-gray-400 hover:text-white",
+                            ].join(" ")}
                             aria-label={link.label}
+                            aria-current={isActivePath(pathname, link.href) ? "page" : undefined}
                             onClick={() => setIsOpen(false)}
                         >
                             {link.label}

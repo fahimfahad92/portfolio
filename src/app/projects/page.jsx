@@ -1,45 +1,46 @@
 import { unstable_cache } from "next/cache";
-import ProjectComponent from "../components/project-component";
+import ProjectsFilter from "../components/projects-filter";
 import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getProjectsData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
+import { SITE_URL, SITE_NAME } from "../constants/site-constants";
 
-export const dynamic = "force-dynamic";
+const desc = "Projects built with Java, Spring Boot, AWS, React, and Next.js across fintech and SaaS startups.";
 
 export const metadata = {
-    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
-    description: "10 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+    title: `Projects | ${SITE_NAME}`,
+    description: desc,
+    openGraph: { title: `Projects | ${SITE_NAME}`, description: desc, url: `${SITE_URL}/projects`, siteName: SITE_NAME, type: "website" },
+    twitter: { card: "summary", title: `Projects | ${SITE_NAME}`, description: desc },
+    alternates: { canonical: `${SITE_URL}/projects` },
 };
 
 export const getProjects = unstable_cache(
-  async () => {
-    return await getProjectsData();
-  },
-  ["projects"],
-  { revalidate: CACHING_CONSTANTS.SEVEN_DAY, tags: ["projects"] }
+    async () => {
+        return await getProjectsData();
+    },
+    ["projects"],
+    { revalidate: CACHING_CONSTANTS.SEVEN_DAY, tags: ["projects"] }
 );
 
 export default async function ProjectsPage() {
-  const projects = await getProjects();
+    const projects = await getProjects();
 
-  if (!projects) {
+    if (!projects) {
+        return (
+            <div className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
+                Projects not found
+            </div>
+        );
+    }
+
     return (
-      <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
-        Projects not found
-      </div>
+        <>
+            <StatsigEvent eventName="portfolio_pv_projects" metadata={{ page: "projects" }} />
+
+            <div className="max-w-5xl mx-auto px-4 py-10">
+                <ProjectsFilter projects={projects} />
+            </div>
+        </>
     );
-  }
-
-  return (
-      <>
-        <StatsigEvent eventName="portfolio_pv_projects" metadata={{page: "projects"}}/>
-
-        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-5 p-5">
-          {projects?.map((project) => (
-              <ProjectComponent project={project} key={project.name} />
-          ))}
-        </div>
-      </>
-
-  );
 }

@@ -1,35 +1,34 @@
 import ViewDetails from "@/app/components/view-details-component";
-import {ROUTING_CONSTANTS} from "../constants/routing-constants";
+import { ROUTING_CONSTANTS } from "../constants/routing-constants";
 import TagPill from "@/app/components/tag-pill";
 import SectionLabel from "@/app/components/section-label";
+import Card from "./card";
 
-
-export default function ExperienceComponent({experience}) {
+export default function ExperienceComponent({ experience }) {
     return (
-        <div
-            className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-1 hover:shadow-md transition-shadow duration-200">
+        <Card className="p-5 flex flex-col gap-1">
 
             {/* Position */}
-            <h2 className="font-bold text-base lg:text-lg text-gray-900 leading-snug">
+            <h2 className="font-bold text-base lg:text-lg text-gray-900 dark:text-gray-100 leading-snug">
                 {experience.position}
             </h2>
 
             {/* Company */}
-            <p className="text-sm font-medium text-gray-700">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {experience.displayName}
             </p>
 
             {/* Timeline · Job type */}
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
                 {experience.timeline}
                 {experience.jobType && (
-                    <span className="ml-1.5 text-gray-400">· {experience.jobType}</span>
+                    <span className="ml-1.5 text-gray-400 dark:text-gray-500">· {experience.jobType}</span>
                 )}
             </p>
 
             {/* Address */}
             {experience.address && (
-                <p className="text-xs text-gray-400">{experience.address}</p>
+                <p className="text-xs text-gray-400 dark:text-gray-500">{experience.address}</p>
             )}
 
             {/* Tech Stack */}
@@ -38,7 +37,7 @@ export default function ExperienceComponent({experience}) {
                     <SectionLabel>Tech Stack</SectionLabel>
                     <div className="flex flex-wrap gap-1.5">
                         {experience.techStack.map((tech) => (
-                            <TagPill key={tech} label={tech}/>
+                            <TagPill key={tech} label={tech} />
                         ))}
                     </div>
                 </div>
@@ -50,7 +49,7 @@ export default function ExperienceComponent({experience}) {
                     <SectionLabel>Related Projects</SectionLabel>
                     <div className="flex flex-wrap gap-1.5">
                         {Object.entries(experience.projects).map(([name, displayName]) => (
-                            <TagPill key={name} label={displayName}/>
+                            <TagPill key={name} label={displayName} />
                         ))}
                     </div>
                 </div>
@@ -62,7 +61,7 @@ export default function ExperienceComponent({experience}) {
                     <SectionLabel>Companies</SectionLabel>
                     <div className="flex flex-wrap gap-1.5">
                         {experience.companies.map((company) => (
-                            <TagPill key={company} label={company}/>
+                            <TagPill key={company} label={company} />
                         ))}
                     </div>
                 </div>
@@ -70,10 +69,8 @@ export default function ExperienceComponent({experience}) {
 
             {/* CTA */}
             <div className="mt-auto pt-4">
-                <ViewDetails
-                    href={`${ROUTING_CONSTANTS.EXPERIENCE}/${experience.companyName}`}
-                />
+                <ViewDetails href={`${ROUTING_CONSTANTS.EXPERIENCE}/${experience.companyName}`} />
             </div>
-        </div>
+        </Card>
     );
 }
