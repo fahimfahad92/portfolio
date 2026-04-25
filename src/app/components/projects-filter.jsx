@@ -8,6 +8,11 @@ export default function ProjectsFilter({ projects }) {
 
     const allTags = [...new Set(projects.flatMap((p) => p.techStack ?? []))].sort();
 
+    const tagCounts = projects.reduce((acc, p) => {
+        p.techStack?.forEach((t) => { acc[t] = (acc[t] ?? 0) + 1; });
+        return acc;
+    }, {});
+
     const filtered = activeTag
         ? projects.filter((p) => p.techStack?.includes(activeTag))
         : projects;
@@ -33,6 +38,7 @@ export default function ProjectsFilter({ projects }) {
                         className={`${pillBase} ${activeTag === tag ? pillActive : pillInactive}`}
                     >
                         {tag}
+                        <span className="ml-1 opacity-60">({tagCounts[tag]})</span>
                     </button>
                 ))}
             </div>

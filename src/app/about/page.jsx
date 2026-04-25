@@ -2,38 +2,36 @@ import ProfileImageComponent from "../components/profile-component";
 import StatsigEvent from "@/app/components/statsig-event";
 import Card from "../components/card";
 import {
-    EmailIcon,
     GithubIcon,
     LinkedInIcon,
     MediumIcon,
     LeetCodeIcon,
 } from "../components/icons/social-icons";
+import CopyEmailButton from "../components/copy-email-button";
+import { EMAIL_ADDRESS } from "../constants/social-constants";
+import { SITE_URL, SITE_NAME } from "../constants/site-constants";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+const description = "Senior software engineer with 10+ years of experience in fintech and SaaS startups. Specialising in Java, Spring Boot, AWS, microservices, and full-stack development.";
 
 export const metadata = {
-    title: "About | Fahim Fahad",
-    description:
-        "Senior software engineer with 10+ years of experience in fintech and SaaS startups. Specialising in Java, Spring Boot, AWS, microservices, and full-stack development.",
+    title: `About | ${SITE_NAME}`,
+    description,
     openGraph: {
-        title: "About | Fahim Fahad",
-        description: "Senior software engineer with 10+ years of experience in fintech and SaaS startups. Specialising in Java, Spring Boot, AWS, microservices, and full-stack development.",
-        url: `${siteUrl}/about`,
-        siteName: "Fahim Fahad",
+        title: `About | ${SITE_NAME}`,
+        description,
+        url: `${SITE_URL}/about`,
+        siteName: SITE_NAME,
         type: "website",
     },
-    twitter: {
-        card: "summary",
-        title: "About | Fahim Fahad",
-        description: "Senior software engineer with 10+ years of experience in fintech and SaaS startups. Specialising in Java, Spring Boot, AWS, microservices, and full-stack development.",
-    },
+    twitter: { card: "summary", title: `About | ${SITE_NAME}`, description },
+    alternates: { canonical: `${SITE_URL}/about` },
 };
 
 const TAGS = ["SaaS", "Fintech", "Startup", "Microservices"];
 
 const STATS = [
     { value: "10+", label: "Years experience" },
-    { value: "2",   label: "Products launched" },
+    { value: "2",   label: "Startup products launched" },
     { value: "10+", label: "Technologies" },
 ];
 
@@ -70,8 +68,8 @@ export default function AboutMePage() {
                         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 -mt-12 mb-6">
 
                             {/* Avatar */}
-                            <div className="w-24 h-24 rounded-full border-4 border-white dark:border-gray-900 shadow-md overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
-                                <ProfileImageComponent width={96} height={96} />
+                            <div className="relative w-24 h-24 rounded-full border-4 border-white dark:border-gray-900 shadow-md overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                                <ProfileImageComponent sizes="96px" />
                             </div>
 
                             {/* Social icons */}
@@ -80,7 +78,7 @@ export default function AboutMePage() {
                                 <span className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"><GithubIcon   size={20} /></span>
                                 <span className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"><MediumIcon   size={20} /></span>
                                 <span className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"><LeetCodeIcon size={20} /></span>
-                                <span className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"><EmailIcon    size={20} /></span>
+                                <CopyEmailButton email={EMAIL_ADDRESS} size={20} />
                             </div>
                         </div>
 
@@ -104,7 +102,7 @@ export default function AboutMePage() {
                     </div>
                 </div>
 
-                {/* ── Stats row — 2-up on mobile, 3-up on sm+ ── */}
+                {/* ── Stats row ── */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5">
                     {STATS.map(({ value, label }) => (
                         <Card key={label} className="p-4 text-center">
@@ -114,7 +112,7 @@ export default function AboutMePage() {
                     ))}
                 </div>
 
-                {/* ── Bio — structured paragraphs ── */}
+                {/* ── Bio ── */}
                 <Card className="p-6 sm:p-8 mt-5 flex flex-col gap-6">
                     {BIO.map(({ label, text }) => (
                         <div key={label}>

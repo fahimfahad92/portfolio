@@ -3,17 +3,16 @@ import { AwsIcon, JavaIcon, NextIcon, ReactIcon, SpringBootIcon } from "./compon
 import ProfileImageComponent from "./components/profile-component";
 import StatsigEvent from "@/app/components/statsig-event";
 import { SOCIAL_LINKS } from "./constants/social-constants";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+import { SITE_URL, SITE_NAME } from "./constants/site-constants";
 
 export const metadata = {
-    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
+    title: `Sayed MD Fahim Fahad – Senior Software Engineer`,
     description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
     openGraph: {
         title: "Sayed MD Fahim Fahad – Senior Software Engineer",
         description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
-        url: siteUrl,
-        siteName: "Fahim Fahad",
+        url: SITE_URL,
+        siteName: SITE_NAME,
         type: "website",
     },
     twitter: {
@@ -21,6 +20,7 @@ export const metadata = {
         title: "Sayed MD Fahim Fahad – Senior Software Engineer",
         description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
     },
+    alternates: { canonical: SITE_URL },
 };
 
 const personJsonLd = {
@@ -28,15 +28,15 @@ const personJsonLd = {
     "@type": "Person",
     name: "Sayed MD Fahim Fahad",
     jobTitle: "Senior Software Engineer",
-    url: siteUrl,
+    url: SITE_URL,
     sameAs: [SOCIAL_LINKS.LINKEDIN, SOCIAL_LINKS.GITHUB, SOCIAL_LINKS.MEDIUM],
 };
 
 const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Fahim Fahad – Senior Software Engineer",
-    url: siteUrl,
+    name: `${SITE_NAME} – Senior Software Engineer`,
+    url: SITE_URL,
 };
 
 export default function HomePage() {
@@ -59,8 +59,11 @@ export default function HomePage() {
 
                         {/* ── Profile image ── */}
                         <div className="shrink-0">
-                            <div className="w-44 h-44 md:w-60 md:h-60 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
-                                <ProfileImageComponent width={240} height={240} />
+                            <div className="relative w-44 h-44 md:w-60 md:h-60 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
+                                <ProfileImageComponent
+                                    priority
+                                    sizes="(max-width: 768px) 176px, 240px"
+                                />
                             </div>
                         </div>
 
@@ -100,7 +103,7 @@ export default function HomePage() {
                                     View My Work
                                 </Link>
                                 <Link
-                                    href={SOCIAL_LINKS.EMAIL}
+                                    href="/contact"
                                     className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-semibold rounded-lg shadow border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 text-sm sm:text-base"
                                 >
                                     Contact Me

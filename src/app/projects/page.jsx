@@ -3,24 +3,16 @@ import ProjectsFilter from "../components/projects-filter";
 import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getProjectsData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
+import { SITE_URL, SITE_NAME } from "../constants/site-constants";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+const desc = "Projects built with Java, Spring Boot, AWS, React, and Next.js across fintech and SaaS startups.";
 
 export const metadata = {
-    title: "Projects | Fahim Fahad",
-    description: "Projects built with Java, Spring Boot, AWS, React, and Next.js across fintech and SaaS startups.",
-    openGraph: {
-        title: "Projects | Fahim Fahad",
-        description: "Projects built with Java, Spring Boot, AWS, React, and Next.js across fintech and SaaS startups.",
-        url: `${siteUrl}/projects`,
-        siteName: "Fahim Fahad",
-        type: "website",
-    },
-    twitter: {
-        card: "summary",
-        title: "Projects | Fahim Fahad",
-        description: "Projects built with Java, Spring Boot, AWS, React, and Next.js across fintech and SaaS startups.",
-    },
+    title: `Projects | ${SITE_NAME}`,
+    description: desc,
+    openGraph: { title: `Projects | ${SITE_NAME}`, description: desc, url: `${SITE_URL}/projects`, siteName: SITE_NAME, type: "website" },
+    twitter: { card: "summary", title: `Projects | ${SITE_NAME}`, description: desc },
+    alternates: { canonical: `${SITE_URL}/projects` },
 };
 
 export const getProjects = unstable_cache(

@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { ROUTING_CONSTANTS } from "@/app/constants/routing-constants";
 import {
-    EmailIcon,
     GithubIcon,
     LinkedInIcon,
     MediumIcon,
     LeetCodeIcon,
 } from "./components/icons/social-icons";
+import { EMAIL_ADDRESS } from "./constants/social-constants";
+import CopyEmailButton from "./components/copy-email-button";
 
 const NAV_LINKS = [
     { href: ROUTING_CONSTANTS.EXPERIENCE, label: "Experience" },
@@ -17,8 +18,9 @@ const NAV_LINKS = [
 ];
 
 const WRITING_LINKS = [
-    { href: ROUTING_CONSTANTS.BLOGS,                    label: "Blog"    },
-    { href: "https://medium.com/@fahimfahad92",         label: "Medium", external: true },
+    { href: ROUTING_CONSTANTS.BLOGS,              label: "Blog"    },
+    { href: "https://medium.com/@fahimfahad92",   label: "Medium", external: true },
+    { href: ROUTING_CONSTANTS.CONTACT,            label: "Contact" },
 ];
 
 export default function Footer() {
@@ -43,7 +45,7 @@ export default function Footer() {
                         <span className="hover:text-white transition-colors duration-200"><GithubIcon   size={18} /></span>
                         <span className="hover:text-white transition-colors duration-200"><MediumIcon   size={18} /></span>
                         <span className="hover:text-white transition-colors duration-200"><LeetCodeIcon size={18} /></span>
-                        <span className="hover:text-white transition-colors duration-200"><EmailIcon    size={18} /></span>
+                        <span className="text-gray-400 hover:text-white"><CopyEmailButton email={EMAIL_ADDRESS} size={18} /></span>
                     </div>
                 </div>
 
@@ -78,12 +80,7 @@ export default function Footer() {
                             {label}
                         </Link>
                     ))}
-                    <Link
-                        href="mailto:fahimfahad92@gmail.com"
-                        className="text-sm text-gray-400 hover:text-white transition-colors duration-200 mt-1"
-                    >
-                        fahimfahad92@gmail.com
-                    </Link>
+                    <p className="text-sm text-gray-500 mt-1">{EMAIL_ADDRESS}</p>
                 </div>
 
             </div>

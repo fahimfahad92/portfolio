@@ -8,6 +8,11 @@ export default function BlogsFilter({ blogs }) {
 
     const allTags = [...new Set(blogs.flatMap((b) => b.tags ?? []))].sort();
 
+    const tagCounts = blogs.reduce((acc, b) => {
+        b.tags?.forEach((t) => { acc[t] = (acc[t] ?? 0) + 1; });
+        return acc;
+    }, {});
+
     const filtered = activeTag
         ? blogs.filter((b) => b.tags?.includes(activeTag))
         : blogs;
@@ -33,6 +38,7 @@ export default function BlogsFilter({ blogs }) {
                         className={`${pillBase} ${activeTag === tag ? pillActive : pillInactive}`}
                     >
                         {tag}
+                        <span className="ml-1 opacity-60">({tagCounts[tag]})</span>
                     </button>
                 ))}
             </div>

@@ -1,14 +1,13 @@
 import Link from "next/link";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+import { SITE_URL } from "@/app/constants/site-constants";
 
 export default function DetailPageLayout({ backHref, sectionLabel, currentPage, children }) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-            { "@type": "ListItem", position: 2, name: sectionLabel, item: `${siteUrl}${backHref}` },
+            { "@type": "ListItem", position: 1, name: "Home",       item: SITE_URL },
+            { "@type": "ListItem", position: 2, name: sectionLabel, item: `${SITE_URL}${backHref}` },
             { "@type": "ListItem", position: 3, name: currentPage },
         ],
     };

@@ -4,24 +4,16 @@ import StatsigEvent from "@/app/components/statsig-event";
 import { ArrowOutwardIcon } from "../components/icons/common-icons";
 import Card from "../components/card";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-three-snowy-36.vercel.app";
+import { SITE_URL, SITE_NAME } from "../constants/site-constants";
+
+const desc = "Academic background in Computer Science and Engineering, including publications in software research.";
 
 export const metadata = {
-    title: "Education | Fahim Fahad",
-    description:
-        "Academic background in Computer Science and Engineering, including publications in software research.",
-    openGraph: {
-        title: "Education | Fahim Fahad",
-        description: "Academic background in Computer Science and Engineering, including publications in software research.",
-        url: `${siteUrl}/education`,
-        siteName: "Fahim Fahad",
-        type: "website",
-    },
-    twitter: {
-        card: "summary",
-        title: "Education | Fahim Fahad",
-        description: "Academic background in Computer Science and Engineering, including publications in software research.",
-    },
+    title: `Education | ${SITE_NAME}`,
+    description: desc,
+    openGraph: { title: `Education | ${SITE_NAME}`, description: desc, url: `${SITE_URL}/education`, siteName: SITE_NAME, type: "website" },
+    twitter: { card: "summary", title: `Education | ${SITE_NAME}`, description: desc },
+    alternates: { canonical: `${SITE_URL}/education` },
 };
 
 export const dynamic = "force-static";
