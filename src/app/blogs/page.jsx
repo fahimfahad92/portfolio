@@ -1,7 +1,7 @@
-import {unstable_cache} from "next/cache";
-import BlogComponent from "../components/blog-component";
-import {CACHING_CONSTANTS} from "../constants/caching-constants";
-import {getBlogData} from "../firebase/firebase-util";
+import { unstable_cache } from "next/cache";
+import BlogsFilter from "../components/blogs-filter";
+import { CACHING_CONSTANTS } from "../constants/caching-constants";
+import { getBlogData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
 export const metadata = {
@@ -15,22 +15,24 @@ const getBlogs = unstable_cache(
         return await getBlogData();
     },
     ["blogs"],
-    {revalidate: CACHING_CONSTANTS.ONE_DAY, tags: ["blogs"]}
+    { revalidate: CACHING_CONSTANTS.ONE_DAY, tags: ["blogs"] }
 );
 
 export default async function BlogsPage() {
     const blogs = await getBlogs();
 
+    // Serialize Date objects before passing to the client component
+    const serializedBlogs = blogs?.map((b) => ({
+        ...b,
+        publishDate: b.publishDate instanceof Date ? b.publishDate.toISOString() : b.publishDate,
+    })) ?? [];
+
     return (
         <>
-            <StatsigEvent eventName="portfolio_pv_blogs" metadata={{page: "blogs"}}/>
+            <StatsigEvent eventName="portfolio_pv_blogs" metadata={{ page: "blogs" }} />
 
             <div className="max-w-5xl mx-auto px-4 py-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {blogs?.map((blog) => (
-                        <BlogComponent blog={blog} key={blog.id}/>
-                    ))}
-                </div>
+                <BlogsFilter blogs={serializedBlogs} />
             </div>
         </>
     );

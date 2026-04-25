@@ -10,15 +10,15 @@ export default function ProjectComponent({ project }) {
         <Card className="p-5 flex flex-col gap-1">
 
             {/* Title */}
-            <h2 className="font-bold text-base lg:text-lg text-gray-900 leading-snug">
+            <h2 className="font-bold text-base lg:text-lg text-gray-900 dark:text-gray-100 leading-snug">
                 {project.displayName}
             </h2>
 
             {/* Company · Timeline */}
-            <p className="text-sm font-medium text-gray-700">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {project.companyName}
                 {project.timeline && (
-                    <span className="ml-1.5 text-xs text-gray-400 font-normal">
+                    <span className="ml-1.5 text-xs text-gray-400 dark:text-gray-500 font-normal">
                         · {project.timeline}
                     </span>
                 )}

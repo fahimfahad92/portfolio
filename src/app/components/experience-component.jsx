@@ -9,26 +9,26 @@ export default function ExperienceComponent({ experience }) {
         <Card className="p-5 flex flex-col gap-1">
 
             {/* Position */}
-            <h2 className="font-bold text-base lg:text-lg text-gray-900 leading-snug">
+            <h2 className="font-bold text-base lg:text-lg text-gray-900 dark:text-gray-100 leading-snug">
                 {experience.position}
             </h2>
 
             {/* Company */}
-            <p className="text-sm font-medium text-gray-700">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {experience.displayName}
             </p>
 
             {/* Timeline · Job type */}
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
                 {experience.timeline}
                 {experience.jobType && (
-                    <span className="ml-1.5 text-gray-400">· {experience.jobType}</span>
+                    <span className="ml-1.5 text-gray-400 dark:text-gray-500">· {experience.jobType}</span>
                 )}
             </p>
 
             {/* Address */}
             {experience.address && (
-                <p className="text-xs text-gray-400">{experience.address}</p>
+                <p className="text-xs text-gray-400 dark:text-gray-500">{experience.address}</p>
             )}
 
             {/* Tech Stack */}
@@ -69,9 +69,7 @@ export default function ExperienceComponent({ experience }) {
 
             {/* CTA */}
             <div className="mt-auto pt-4">
-                <ViewDetails
-                    href={`${ROUTING_CONSTANTS.EXPERIENCE}/${experience.companyName}`}
-                />
+                <ViewDetails href={`${ROUTING_CONSTANTS.EXPERIENCE}/${experience.companyName}`} />
             </div>
         </Card>
     );

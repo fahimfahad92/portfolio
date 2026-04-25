@@ -4,6 +4,12 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { ROUTING_CONSTANTS } from "../constants/routing-constants";
+import { SunIcon, MoonIcon } from "./icons/common-icons";
+
+function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle("dark");
+    try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch (e) { /* ignore */ }
+}
 
 const NAV_LINKS = [
     { href: ROUTING_CONSTANTS.HOME, label: "Home" },
@@ -125,6 +131,16 @@ export default function Navbar() {
                         </Link>
                     ))}
                 </div>
+
+                {/* Theme toggle — always visible */}
+                <button
+                    onClick={toggleTheme}
+                    aria-label="Toggle dark mode"
+                    className="flex items-center justify-center w-9 h-9 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                    <span className="dark:hidden"><MoonIcon size={18} /></span>
+                    <span className="hidden dark:block"><SunIcon size={18} /></span>
+                </button>
 
                 {/* Hamburger — mobile only, ref used to restore focus on ESC */}
                 <div ref={hamburgerRef} tabIndex={-1}>

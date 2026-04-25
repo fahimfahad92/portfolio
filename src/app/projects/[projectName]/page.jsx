@@ -43,12 +43,15 @@ export default async function ProjectDetailPage({ params }) {
                 metadata={{ project: d.displayName }}
             />
 
-            <DetailPageLayout backHref="/projects" backLabel="Back to Projects">
+            <DetailPageLayout
+                backHref="/projects"
+                sectionLabel="Projects"
+                currentPage={d.displayName}
+            >
 
                 {/* ── Overview card ── */}
                 <Card className="overflow-hidden">
-                    {/* Header banner */}
-                    <div className="bg-gray-900 text-white px-6 py-6">
+                    <div className="bg-gray-900 dark:bg-gray-950 text-white px-6 py-6">
                         <h1 className="text-xl font-bold leading-snug">{d.displayName}</h1>
                         <p className="text-gray-300 text-sm mt-1">
                             {d.companyName}
@@ -58,7 +61,6 @@ export default async function ProjectDetailPage({ params }) {
                         </p>
                     </div>
 
-                    {/* Meta */}
                     <div className="px-6 py-5 flex flex-col gap-4">
                         {d.techStack?.length > 0 && (
                             <ItemComponent title="Tech Stack" items={d.techStack} />
@@ -66,7 +68,7 @@ export default async function ProjectDetailPage({ params }) {
 
                         {d.link && (
                             <div>
-                                <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
+                                <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
                                     Live link
                                 </p>
                                 <LinkComponent link={d.link} external={true} />
@@ -78,10 +80,10 @@ export default async function ProjectDetailPage({ params }) {
                 {/* ── Description ── */}
                 {d.description && (
                     <Card className="px-6 py-5">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
                             About this project
                         </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">{d.description}</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{d.description}</p>
                     </Card>
                 )}
 

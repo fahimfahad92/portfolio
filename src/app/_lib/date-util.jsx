@@ -1,51 +1,31 @@
 export function formatDate(date) {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  let dateString = false;
-  try {
-    if (date.includes("GMT+")) {
-      return date.substring(0, 15);
-    } else {
-      dateString = date.split("T")[0];
+    if (date instanceof Date) {
+        date = date.toISOString();
     }
-  } catch (err) {
-    console.log(`Error for date ${date} ${err}`);
-    return dateString;
-  }
+    if (!date || typeof date !== "string") return null;
 
-  const [year, month, day] = dateString.split("-");
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ];
 
-  // Function to determine ordinal suffix
-  function getOrdinalSuffix(n) {
-    if (n > 3 && n < 21) return "th"; // For 11th to 13th
-    switch (n % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
+    function getOrdinalSuffix(n) {
+        if (n > 3 && n < 21) return "th";
+        switch (n % 10) {
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
+            default: return "th";
+        }
     }
-  }
 
-  const dayNumber = parseInt(day, 10);
-  const ordinalSuffix = getOrdinalSuffix(dayNumber);
-  const monthName = months[parseInt(month, 10) - 1];
-
-  return `${dayNumber}${ordinalSuffix} ${monthName}, ${year}`;
+    try {
+        const dateString = date.includes("T") ? date.split("T")[0] : date.substring(0, 10);
+        const [year, month, day] = dateString.split("-");
+        const dayNumber = parseInt(day, 10);
+        return `${dayNumber}${getOrdinalSuffix(dayNumber)} ${months[parseInt(month, 10) - 1]}, ${year}`;
+    } catch (err) {
+        console.log(`Error formatting date ${date}:`, err);
+        return null;
+    }
 }

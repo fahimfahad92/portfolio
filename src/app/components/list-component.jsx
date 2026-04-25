@@ -7,16 +7,16 @@ export default function ListComponent({ title, listData, variant = "default" }) 
 
     return (
         <Card className="p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
                 {title}
             </p>
             <ul className="flex flex-col gap-2">
                 {listData.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700 dark:text-gray-300">
                         {isAchievement ? (
                             <span className="mt-0.5 text-amber-500 shrink-0 leading-none">★</span>
                         ) : (
-                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0" />
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-600 shrink-0" />
                         )}
                         {item}
                     </li>

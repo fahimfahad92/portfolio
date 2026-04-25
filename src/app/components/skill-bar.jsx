@@ -27,7 +27,7 @@ export default function SkillBar({ name, years, maxYears }) {
 
     return (
         <div ref={ref} className="flex items-center gap-3">
-            <span className="w-32 shrink-0 text-sm text-gray-700 truncate">{name}</span>
+            <span className="w-32 shrink-0 text-sm text-gray-700 dark:text-gray-300 truncate">{name}</span>
 
             <div
                 role="progressbar"
@@ -35,7 +35,7 @@ export default function SkillBar({ name, years, maxYears }) {
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-label={`${name}: ${years} ${years === 1 ? "year" : "years"}`}
-                className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden"
+                className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden"
             >
                 <div
                     className={`h-full rounded-full transition-all duration-700 ease-out ${color}`}
@@ -43,7 +43,7 @@ export default function SkillBar({ name, years, maxYears }) {
                 />
             </div>
 
-            <span className="w-14 shrink-0 text-right text-xs text-gray-400">
+            <span className="w-14 shrink-0 text-right text-xs text-gray-400 dark:text-gray-500">
                 {years} {years === 1 ? "yr" : "yrs"}
             </span>
         </div>

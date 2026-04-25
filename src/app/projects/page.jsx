@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import ProjectComponent from "../components/project-component";
+import ProjectsFilter from "../components/projects-filter";
 import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getProjectsData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
@@ -10,34 +10,31 @@ export const metadata = {
 };
 
 export const getProjects = unstable_cache(
-  async () => {
-    return await getProjectsData();
-  },
-  ["projects"],
-  { revalidate: CACHING_CONSTANTS.SEVEN_DAY, tags: ["projects"] }
+    async () => {
+        return await getProjectsData();
+    },
+    ["projects"],
+    { revalidate: CACHING_CONSTANTS.SEVEN_DAY, tags: ["projects"] }
 );
 
 export default async function ProjectsPage() {
-  const projects = await getProjects();
+    const projects = await getProjects();
 
-  if (!projects) {
+    if (!projects) {
+        return (
+            <div className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
+                Projects not found
+            </div>
+        );
+    }
+
     return (
-      <div className="bg-gray-100 text-gray-700 font-semibold text-lg text-center py-6 rounded-md shadow-sm">
-        Projects not found
-      </div>
+        <>
+            <StatsigEvent eventName="portfolio_pv_projects" metadata={{ page: "projects" }} />
+
+            <div className="max-w-5xl mx-auto px-4 py-10">
+                <ProjectsFilter projects={projects} />
+            </div>
+        </>
     );
-  }
-
-  return (
-      <>
-        <StatsigEvent eventName="portfolio_pv_projects" metadata={{page: "projects"}}/>
-
-        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-5 p-5">
-          {projects?.map((project) => (
-              <ProjectComponent project={project} key={project.name} />
-          ))}
-        </div>
-      </>
-
-  );
 }

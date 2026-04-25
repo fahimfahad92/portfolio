@@ -25,7 +25,7 @@ export default async function EducationPage() {
                         <Card key={ed.degree} className="overflow-hidden">
 
                             {/* Card header */}
-                            <div className="bg-gray-900 text-white px-6 py-5">
+                            <div className="bg-gray-900 dark:bg-gray-950 text-white px-6 py-5">
                                 <h2 className="text-lg font-bold leading-snug">{ed.universityName}</h2>
                                 <p className="text-sm text-gray-300 mt-1">{ed.degree}</p>
                             </div>
@@ -37,39 +37,39 @@ export default async function EducationPage() {
                                 <div className="flex flex-wrap gap-x-6 gap-y-2">
                                     {ed.session && (
                                         <div>
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Session</p>
-                                            <p className="text-sm text-gray-700 mt-0.5">{ed.session}</p>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Session</p>
+                                            <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{ed.session}</p>
                                         </div>
                                     )}
                                     {ed.cgpa && (
                                         <div>
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">CGPA</p>
-                                            <p className="text-sm text-gray-700 mt-0.5">{ed.cgpa}</p>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">CGPA</p>
+                                            <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{ed.cgpa}</p>
                                         </div>
                                     )}
                                     {ed.position && (
                                         <div>
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Class position</p>
-                                            <p className="text-sm text-gray-700 mt-0.5">{ed.position}</p>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Class position</p>
+                                            <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{ed.position}</p>
                                         </div>
                                     )}
                                 </div>
 
                                 {/* Publication */}
                                 {ed.publicationTitle && (
-                                    <div className="border border-gray-200 rounded-lg p-4 flex flex-col gap-2 bg-gray-50">
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex flex-col gap-2 bg-gray-50 dark:bg-gray-800">
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
                                             Publication
                                         </p>
-                                        <p className="text-sm font-semibold text-gray-900 leading-snug">
+                                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug">
                                             {ed.publicationTitle}
                                         </p>
-                                        <p className="text-xs text-gray-500">
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
                                             {ed.publisherName}
                                             {ed.publicationDate && ` · ${ed.publicationDate}`}
                                         </p>
                                         {ed.publicationDetail && (
-                                            <p className="text-sm text-gray-600 leading-relaxed">
+                                            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                                                 {ed.publicationDetail}
                                             </p>
                                         )}
@@ -78,7 +78,7 @@ export default async function EducationPage() {
                                                 href={ed.publicationLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-1 w-fit text-sm font-medium text-gray-700 border border-gray-300 rounded-lg px-3 py-1.5 hover:bg-gray-100 transition-colors duration-200 mt-1"
+                                                className="inline-flex items-center gap-1 w-fit text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 mt-1"
                                             >
                                                 View publication
                                                 <ArrowOutwardIcon size={14} />

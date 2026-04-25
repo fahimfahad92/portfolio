@@ -43,35 +43,37 @@ export default async function CompanyDetailPage({ params }) {
                 metadata={{ company: d.displayName }}
             />
 
-            <DetailPageLayout backHref="/experience" backLabel="Back to Experience">
+            <DetailPageLayout
+                backHref="/experience"
+                sectionLabel="Experience"
+                currentPage={d.displayName}
+            >
 
                 {/* ── Overview card ── */}
                 <Card className="overflow-hidden">
-                    {/* Header banner */}
-                    <div className="bg-gray-900 text-white px-6 py-6">
+                    <div className="bg-gray-900 dark:bg-gray-950 text-white px-6 py-6">
                         <h1 className="text-xl font-bold leading-snug">{d.position}</h1>
                         <p className="text-gray-300 text-sm mt-1">{d.displayName}</p>
                     </div>
 
-                    {/* Meta */}
                     <div className="px-6 py-5 flex flex-col gap-4">
                         <div className="flex flex-wrap gap-x-6 gap-y-3">
                             {d.timeline && (
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Timeline</p>
-                                    <p className="text-sm text-gray-700 mt-0.5">{d.timeline}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Timeline</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{d.timeline}</p>
                                 </div>
                             )}
                             {d.jobType && (
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Type</p>
-                                    <p className="text-sm text-gray-700 mt-0.5">{d.jobType}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Type</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{d.jobType}</p>
                                 </div>
                             )}
                             {d.address && (
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Location</p>
-                                    <p className="text-sm text-gray-700 mt-0.5">{d.address}</p>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Location</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{d.address}</p>
                                 </div>
                             )}
                         </div>
@@ -103,10 +105,10 @@ export default async function CompanyDetailPage({ params }) {
                 {/* ── Description ── */}
                 {d.description && (
                     <Card className="px-6 py-5">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
                             Overview
                         </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">{d.description}</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{d.description}</p>
                     </Card>
                 )}
 
