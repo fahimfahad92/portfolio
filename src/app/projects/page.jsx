@@ -4,11 +4,9 @@ import { CACHING_CONSTANTS } from "../constants/caching-constants";
 import { getProjectsData } from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
-export const dynamic = "force-dynamic";
-
 export const metadata = {
-    title: "Sayed MD Fahim Fahad – Senior Software Engineer",
-    description: "10 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+    title: "Projects | Fahim Fahad",
+    description: "Projects built with Java, Spring Boot, AWS, React, and Next.js across fintech and SaaS startups.",
 };
 
 export const getProjects = unstable_cache(

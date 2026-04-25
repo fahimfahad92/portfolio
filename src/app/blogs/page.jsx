@@ -4,8 +4,6 @@ import {CACHING_CONSTANTS} from "../constants/caching-constants";
 import {getBlogData} from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
-export const dynamic = "force-dynamic";
-
 export const metadata = {
     title: "Blogs | Fahim Fahad",
     description:

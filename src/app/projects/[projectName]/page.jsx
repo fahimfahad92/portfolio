@@ -8,25 +8,23 @@ import { getProjects } from "../page";
 import StatsigEvent from "@/app/components/statsig-event";
 import Link from "next/link";
 
-let projectName = "";
-
 const getProjectDetails = unstable_cache(
     async (projectName) => {
         return await getProjectDetailsData(projectName);
     },
-    [projectName],
-    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: [projectName] }
+    ["project-details"],
+    { revalidate: CACHING_CONSTANTS.DEFAULT }
 );
 
 export async function generateStaticParams() {
     const projects = await getProjects();
     return projects.map((project) => ({
-        projectDetails: getProjectDetails(project.name),
+        projectName: project.name,
     }));
 }
 
 export default async function ProjectDetailPage({ params }) {
-    projectName = (await params).projectName;
+    const { projectName } = await params;
     const d = await getProjectDetails(projectName);
 
     if (!d) {

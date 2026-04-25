@@ -8,25 +8,23 @@ import { getExperience } from "../page";
 import StatsigEvent from "@/app/components/statsig-event";
 import Link from "next/link";
 
-let companyName = "";
-
 const getExperienceDetails = unstable_cache(
     async (companyName) => {
         return await getExperienceDetailsData(companyName);
     },
-    [companyName],
-    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: [companyName] }
+    ["experience-details"],
+    { revalidate: CACHING_CONSTANTS.DEFAULT }
 );
 
 export async function generateStaticParams() {
     const experiences = await getExperience();
     return experiences.map((experience) => ({
-        experienceDetails: getExperienceDetails(experience.companyName),
+        companyName: experience.companyName,
     }));
 }
 
 export default async function CompanyDetailPage({ params }) {
-    companyName = (await params).companyName;
+    const { companyName } = await params;
     const d = await getExperienceDetails(companyName);
 
     if (!d) {

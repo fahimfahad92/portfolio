@@ -23,7 +23,7 @@ export const viewport = {
 export const metadata = {
     title: "Sayed MD Fahim Fahad – Senior Software Engineer",
     description:
-        "8 years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+        "10+ years of experience building scalable SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
 };
 
 export default function RootLayout({children}) {
@@ -36,11 +36,11 @@ export default function RootLayout({children}) {
             className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
         >
         <div>
-            <StatsigProviderWrapper>
+            {/*<StatsigProviderWrapper>*/}
                 <NavBar/>
                 <main className="min-h-[87vh] overflow-y-auto">{children}</main>
                 <Footer/>
-            </StatsigProviderWrapper>
+            {/*</StatsigProviderWrapper>*/}
         </div>
         </body>
         </html>

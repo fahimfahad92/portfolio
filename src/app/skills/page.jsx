@@ -3,8 +3,6 @@ import {CACHING_CONSTANTS} from "../constants/caching-constants";
 import {getSkillsData} from "../firebase/firebase-util";
 import StatsigEvent from "@/app/components/statsig-event";
 
-export const dynamic = "force-dynamic";
-
 export const metadata = {
     title: "Skills | Fahim Fahad",
     description: "Technical skills across backend, frontend, cloud, and databases — Java, Spring Boot, AWS, React, PostgreSQL, MongoDB, and more.",
