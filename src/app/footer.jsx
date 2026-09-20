@@ -6,8 +6,9 @@ import {
     MediumIcon,
     LeetCodeIcon,
 } from "./components/icons/social-icons";
-import { EMAIL_ADDRESS } from "./constants/social-constants";
+import { EMAIL_ADDRESS, SOCIAL_LINKS } from "./constants/social-constants";
 import CopyEmailButton from "./components/copy-email-button";
+import { PROFILE } from "./data/profile-data";
 
 const NAV_LINKS = [
     { href: ROUTING_CONSTANTS.EXPERIENCE, label: "Experience" },
@@ -18,9 +19,16 @@ const NAV_LINKS = [
 ];
 
 const WRITING_LINKS = [
-    { href: ROUTING_CONSTANTS.BLOGS,              label: "Blog"    },
-    { href: "https://medium.com/@fahimfahad92",   label: "Medium", external: true },
-    { href: ROUTING_CONSTANTS.CONTACT,            label: "Contact" },
+    { href: ROUTING_CONSTANTS.BLOGS,   label: "Blog" },
+    { href: SOCIAL_LINKS.MEDIUM,       label: "Medium", external: true },
+    { href: ROUTING_CONSTANTS.CONTACT, label: "Contact" },
+];
+
+const SOCIALS = [
+    { href: SOCIAL_LINKS.LINKEDIN, label: "LinkedIn", Icon: LinkedInIcon },
+    { href: SOCIAL_LINKS.GITHUB,   label: "GitHub",   Icon: GithubIcon   },
+    { href: SOCIAL_LINKS.MEDIUM,   label: "Medium",   Icon: MediumIcon   },
+    { href: SOCIAL_LINKS.LEETCODE, label: "LeetCode", Icon: LeetCodeIcon },
 ];
 
 export default function Footer() {
@@ -34,17 +42,25 @@ export default function Footer() {
                         href={ROUTING_CONSTANTS.HOME}
                         className="text-base font-bold hover:text-gray-300 transition-colors duration-200"
                     >
-                        Fahim Fahad
+                        {PROFILE.shortName}
                     </Link>
                     <p className="text-xs text-gray-400 leading-relaxed">
-                        Senior Software Engineer · Java · Spring Boot · AWS · React
+                        {PROFILE.headline}
                     </p>
                     {/* Social icons */}
                     <div className="flex items-center gap-4 pt-1 text-gray-400">
-                        <span className="hover:text-white transition-colors duration-200"><LinkedInIcon size={18} /></span>
-                        <span className="hover:text-white transition-colors duration-200"><GithubIcon   size={18} /></span>
-                        <span className="hover:text-white transition-colors duration-200"><MediumIcon   size={18} /></span>
-                        <span className="hover:text-white transition-colors duration-200"><LeetCodeIcon size={18} /></span>
+                        {SOCIALS.map(({ href, label, Icon }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={label}
+                                className="hover:text-white transition-colors duration-200"
+                            >
+                                <Icon size={18} />
+                            </a>
+                        ))}
                         <span className="text-gray-400 hover:text-white"><CopyEmailButton email={EMAIL_ADDRESS} size={18} /></span>
                     </div>
                 </div>
@@ -80,14 +96,20 @@ export default function Footer() {
                             {label}
                         </Link>
                     ))}
-                    <p className="text-sm text-gray-500 mt-1">{EMAIL_ADDRESS}</p>
+
+                    <a
+                        href={SOCIAL_LINKS.EMAIL}
+                        className="text-sm text-gray-400 hover:text-white transition-colors duration-200 mt-1"
+                    >
+                        {EMAIL_ADDRESS}
+                    </a>
                 </div>
 
             </div>
 
             {/* Bottom bar */}
             <div className="border-t border-gray-800 px-6 py-4 text-center text-xs text-gray-600">
-                © {new Date().getFullYear()} Sayed MD Fahim Fahad. All rights reserved.
+                © {new Date().getFullYear()} {PROFILE.fullName}. All rights reserved.
             </div>
         </footer>
     );

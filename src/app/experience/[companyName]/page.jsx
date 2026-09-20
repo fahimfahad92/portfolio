@@ -3,25 +3,14 @@ import ListComponent from "@/app/components/list-component";
 import MapComponent from "@/app/components/map-component";
 import Card from "@/app/components/card";
 import DetailPageLayout from "@/app/components/detail-page-layout";
-import { CACHING_CONSTANTS } from "@/app/constants/caching-constants";
-import { getExperienceDetailsData } from "@/app/firebase/firebase-util";
-import { unstable_cache } from "next/cache";
-import { getExperience } from "../page";
+import { EXPERIENCES, getExperienceBySlug } from "@/app/data/experience-data";
 import StatsigEvent from "@/app/components/statsig-event";
 
 import { SITE_URL, SITE_NAME } from "@/app/constants/site-constants";
 
-const getExperienceDetails = unstable_cache(
-    async (companyName) => {
-        return await getExperienceDetailsData(companyName);
-    },
-    ["experience-details"],
-    { revalidate: CACHING_CONSTANTS.DEFAULT, tags: ["experience-details"] }
-);
-
 export async function generateMetadata({ params }) {
     const { companyName } = await params;
-    const d = await getExperienceDetails(companyName);
+    const d = getExperienceBySlug(companyName);
     const title = d ? `${d.displayName} | Experience | Fahim Fahad` : "Experience | Fahim Fahad";
     const description = d
         ? `${d.position} at ${d.displayName}${d.timeline ? ` · ${d.timeline}` : ""}.`
@@ -35,16 +24,15 @@ export async function generateMetadata({ params }) {
     };
 }
 
-export async function generateStaticParams() {
-    const experiences = await getExperience();
-    return experiences.map((experience) => ({
+export function generateStaticParams() {
+    return EXPERIENCES.map((experience) => ({
         companyName: experience.companyName,
     }));
 }
 
 export default async function CompanyDetailPage({ params }) {
     const { companyName } = await params;
-    const d = await getExperienceDetails(companyName);
+    const d = getExperienceBySlug(companyName);
 
     if (!d) {
         return (
@@ -130,21 +118,9 @@ export default async function CompanyDetailPage({ params }) {
                     </Card>
                 )}
 
-                {/* ── Responsibilities ── */}
-                {d.primaryResponsibility?.length > 0 && (
-                    <ListComponent
-                        title="Primary Responsibilities"
-                        listData={d.primaryResponsibility}
-                    />
-                )}
-
-                {/* ── Achievements ── */}
-                {d.mentionableAchievement?.length > 0 && (
-                    <ListComponent
-                        title="Mentionable Achievements"
-                        listData={d.mentionableAchievement}
-                        variant="achievement"
-                    />
+                {/* ── Highlights ── */}
+                {d.highlights?.length > 0 && (
+                    <ListComponent title="Highlights" listData={d.highlights} />
                 )}
 
             </DetailPageLayout>

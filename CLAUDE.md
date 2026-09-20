@@ -27,19 +27,36 @@ No test framework is configured.
 | `src/app/constants/site-constants.js` | `SITE_URL`, `SITE_NAME` — single source for the domain; reads `NEXT_PUBLIC_SITE_URL` env var |
 | `src/app/constants/social-constants.js` | `SOCIAL_LINKS` map + `EMAIL_ADDRESS` raw string |
 | `src/app/constants/routing-constants.jsx` | All route paths (`HOME`, `ABOUT_ME`, `EXPERIENCE`, `PROJECTS`, `BLOGS`, `SKILLS`, `EDUCATION`, `CONTACT`) |
-| `src/app/constants/caching-constants.jsx` | `CACHING_CONSTANTS.DEFAULT` (30 days), `ONE_DAY` (1 day), `SEVEN_DAY` (7 days) — all in seconds |
+| `src/app/constants/caching-constants.jsx` | `CACHING_CONSTANTS.ONE_DAY` (1 day, in seconds) |
+| `src/app/constants/cv-constants.js` | `CV_CONSTANTS.PATH` (stable public CV URL), `DOWNLOAD_FILENAME`, and `CV_EVENTS` (Statsig event names) |
 
 ### Data layer
 
-All data lives in Firebase Firestore. Fetching utilities are in `src/app/firebase/firebase-util.jsx`:
+Content is split across two sources.
+
+**Hardcoded modules — `src/app/data/`.** Profile copy, experience and projects are plain exported
+constants, transcribed verbatim from Fahim's CV:
+
+| File | Exports |
+|------|---------|
+| `profile-data.js` | `PROFILE` (name, headline, location, `summary`, `summaryLead`), `PROFILE_STATS`, `PROFILE_TAGS` |
+| `experience-data.js` | `EXPERIENCES` (array order = display order), `getExperienceBySlug()` |
+| `projects-data.js` | `PROJECTS` (array order = display order), `getProjectBySlug()` |
+
+Pages import these directly — no `async`, no `unstable_cache`, no network. Array order is the display
+order, so there is no `order` field to sort by.
+
+**Firestore — `src/app/firebase/firebase-util.jsx`.** Only `blogs`, `skills` and `education` remain:
 - Private `fetchDocs(query)` helper eliminates repeated try/catch/forEach boilerplate.
 - Collection names are in a private `COLLECTIONS` constant — never use raw strings.
 - Every public function returns the data array or `false` on error.
-- Every fetch is wrapped in `unstable_cache()` at the page level using durations from `caching-constants.jsx`.
+- Blogs and skills are wrapped in `unstable_cache()` at the page level using `CACHING_CONSTANTS.ONE_DAY`.
+- Blogs additionally support real-time updates via `onSnapshot` (`getBlogDataSnapshot()`).
 
-Firestore collections: `projects`, `projectDetails`, `experience`, `experienceDetails`, `blogs`, `skills`, `education`, `contacts`.
-
-Blogs additionally support real-time updates via `onSnapshot` (`getBlogDataSnapshot()`).
+**These data modules are now the source of truth.** The CV and LinkedIn files they were transcribed
+from are no longer kept in the repo. The wording is Fahim's — copied verbatim from his CV, or written
+by him for the hero and About page. Do not paraphrase, tighten or re-voice it; ask before changing
+any of it.
 
 ### Routing & pages
 
@@ -47,8 +64,8 @@ Pages live under `src/app/`. Dynamic segments use `[companyName]` and `[projectN
 
 ### Component model
 
-- Pages are **Server Components** — they fetch Firestore data directly.
-- Client components use `"use client"`: `NavBar`, `StatsigEvent`, `BlogsFilter`, `ProjectsFilter`, `ContactForm`, `CopyEmailButton`, `SkillBar`, `NotFound`.
+- Pages are **Server Components** — they import from `src/app/data/` or fetch Firestore directly.
+- Client components use `"use client"`: `NavBar`, `StatsigEvent`, `CvActions`, `BlogsFilter`, `ProjectsFilter`, `ContactForm`, `CopyEmailButton`, `SkillBar`, `NotFound`.
 - `DetailPageLayout` — shared layout for all detail pages; renders breadcrumb nav + BreadcrumbList JSON-LD automatically.
 - Icons split by category: `skill-icons.jsx`, `social-icons.jsx`, `common-icons.jsx`.
 
@@ -67,7 +84,20 @@ Requires env vars: `GMAIL_USER` and `GMAIL_APP_PASSWORD` (Gmail App Password, no
 
 ### Analytics & feature flags
 
-Statsig wraps the root layout via `src/app/providers/statsig-provider.jsx`. The `StatsigEvent` component records page-view events. Browser user identity is collected in `src/app/_lib/statsig-util.js`.
+Statsig wraps the root layout via `src/app/providers/statsig-provider.jsx`. The `StatsigEvent` component records page-view events (`portfolio_pv_*`) on mount. Browser user identity is collected in `src/app/_lib/statsig-util.js`.
+
+Note: `StatsigProviderWrapper` returns `null` until its `useEffect` sets the user, so the whole page tree renders client-side only. Nothing inside it appears in the server-rendered HTML.
+
+`CvActions` logs click-time events via `useStatsigClient()`:
+
+| Event | Metadata |
+|-------|----------|
+| `portfolio_cv_preview` | `{ source, mode: "modal" \| "new_tab" }` — `new_tab` below 768px, where inline PDF rendering is unreliable |
+| `portfolio_cv_download` | `{ source }` — `source` is `"preview_modal"` for the button inside the preview |
+
+### CV
+
+The served file is `public/cv/Fahim_Fahad_CV.pdf` — a deliberately stable, undated path. To publish a new CV, overwrite that file; never rename it, or the link and the event history break. The path is only referenced through `CV_CONSTANTS.PATH`.
 
 ### ESLint
 

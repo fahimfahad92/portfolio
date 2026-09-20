@@ -1,6 +1,5 @@
 import ViewDetails from "@/app/components/view-details-component";
 import { ROUTING_CONSTANTS } from "../constants/routing-constants";
-import LinkComponent from "./link-component";
 import TagPill from "@/app/components/tag-pill";
 import SectionLabel from "@/app/components/section-label";
 import Card from "./card";
@@ -36,9 +35,8 @@ export default function ProjectComponent({ project }) {
                 </div>
             )}
 
-            {/* CTAs */}
-            <div className="mt-auto pt-4 flex flex-wrap gap-2">
-                <LinkComponent link={project.link} external={true} />
+            {/* CTA */}
+            <div className="mt-auto pt-4">
                 <ViewDetails href={`${ROUTING_CONSTANTS.PROJECTS}/${project.name}`} />
             </div>
         </Card>

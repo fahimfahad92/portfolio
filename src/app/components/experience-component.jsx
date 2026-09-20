@@ -56,12 +56,12 @@ export default function ExperienceComponent({ experience }) {
             )}
 
             {/* Companies */}
-            {experience.companies?.length > 0 && (
+            {experience.companies && Object.keys(experience.companies).length > 0 && (
                 <div>
                     <SectionLabel>Companies</SectionLabel>
                     <div className="flex flex-wrap gap-1.5">
-                        {experience.companies.map((company) => (
-                            <TagPill key={company} label={company} />
+                        {Object.entries(experience.companies).map(([name, displayName]) => (
+                            <TagPill key={name} label={displayName} />
                         ))}
                     </div>
                 </div>

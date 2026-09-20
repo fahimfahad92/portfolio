@@ -2,23 +2,27 @@ import Link from "next/link";
 import { AwsIcon, JavaIcon, NextIcon, ReactIcon, SpringBootIcon } from "./components/icons/skill-icons";
 import ProfileImageComponent from "./components/profile-component";
 import StatsigEvent from "@/app/components/statsig-event";
+import CvActions from "./components/cv-actions";
 import { SOCIAL_LINKS } from "./constants/social-constants";
 import { SITE_URL, SITE_NAME } from "./constants/site-constants";
+import { PROFILE } from "./data/profile-data";
+
+const title = `${PROFILE.fullName} – Senior Backend Engineer`;
 
 export const metadata = {
-    title: `Sayed MD Fahim Fahad – Senior Software Engineer`,
-    description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+    title,
+    description: PROFILE.summaryLead,
     openGraph: {
-        title: "Sayed MD Fahim Fahad – Senior Software Engineer",
-        description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+        title,
+        description: PROFILE.summaryLead,
         url: SITE_URL,
         siteName: SITE_NAME,
         type: "website",
     },
     twitter: {
         card: "summary",
-        title: "Sayed MD Fahim Fahad – Senior Software Engineer",
-        description: "10+ years building scalable backend systems and full-stack SaaS products in fintech and startups. Java, Spring Boot, AWS, React, Next.js.",
+        title,
+        description: PROFILE.summaryLead,
     },
     alternates: { canonical: SITE_URL },
 };
@@ -26,9 +30,12 @@ export const metadata = {
 const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Sayed MD Fahim Fahad",
-    jobTitle: "Senior Software Engineer",
+    name: PROFILE.fullName,
+    jobTitle: "Senior Backend Engineer",
+    description: PROFILE.summary,
     url: SITE_URL,
+    alumniOf: "Jahangirnagar University",
+    knowsAbout: ["Java", "Spring Boot", "AWS", "Payment systems", "Microservices", "PostgreSQL", "MongoDB"],
     sameAs: [SOCIAL_LINKS.LINKEDIN, SOCIAL_LINKS.GITHUB, SOCIAL_LINKS.MEDIUM],
 };
 
@@ -78,20 +85,14 @@ export default function HomePage() {
                                 </span>
                             </div>
 
-                            {/* Role + name */}
-                            <div>
-                                <p className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
-                                    Senior Software Engineer @ Toptal
-                                </p>
-                                <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100 leading-tight">
-                                    Fahim Fahad
-                                </h1>
-                            </div>
+                            {/* Name */}
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100 leading-tight">
+                                {PROFILE.shortName}
+                            </h1>
 
                             {/* Tagline */}
-                            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg mx-auto md:mx-0">
-                                10+ years building scalable backend systems and full-stack SaaS products in fintech and startups.
-                                I help teams ship reliable software fast — from zero to production.
+                            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl mx-auto md:mx-0">
+                                {PROFILE.heroTagline}
                             </p>
 
                             {/* CTA buttons */}
@@ -108,6 +109,7 @@ export default function HomePage() {
                                 >
                                     Contact Me
                                 </Link>
+                                <CvActions source="home" />
                             </div>
 
                             {/* Skill icon strip */}

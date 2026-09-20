@@ -5,23 +5,17 @@ import {
     onSnapshot,
     orderBy,
     query,
-    where,
 } from "firebase/firestore";
 
-// ─── Collection name constants (item 4) ──────────────────────────────────────
+// ─── Collection name constants ───────────────────────────────────────────────
 
 const COLLECTIONS = {
-    PROJECTS:            "projects",
-    PROJECT_DETAILS:     "projectDetails",
-    EXPERIENCE:          "experience",
-    EXPERIENCE_DETAILS:  "experienceDetails",
-    BLOGS:               "blogs",
-    SKILLS:              "skills",
-    EDUCATION:           "education",
-    CONTACTS:            "contacts",
+    BLOGS:     "blogs",
+    SKILLS:    "skills",
+    EDUCATION: "education",
 };
 
-// ─── Shared fetch helper (item 3) ────────────────────────────────────────────
+// ─── Shared fetch helper ─────────────────────────────────────────────────────
 
 /**
  * Runs a Firestore query and maps results to plain objects.
@@ -34,68 +28,6 @@ async function fetchDocs(q) {
 }
 
 // ─── Public fetch functions ───────────────────────────────────────────────────
-
-/**
- * @typedef {{ id: string, name: string, displayName: string, techStack: string[], link?: string, order: number }} Project
- * @returns {Promise<Project[] | false>}
- */
-export async function getProjectsData() {
-    try {
-        return await fetchDocs(query(collection(db, COLLECTIONS.PROJECTS), orderBy("order", "desc")));
-    } catch (err) {
-        console.error("[getProjectsData]", err);
-        return false;
-    }
-}
-
-/**
- * @typedef {{ id: string, name: string, displayName: string, techStack?: string[], description?: string, primaryResponsibility?: string[], mentionableAchievements?: string[], link?: string, companyName?: string, timeline?: string }} ProjectDetails
- * @param {string} projectName
- * @returns {Promise<ProjectDetails | undefined | false>}
- */
-export async function getProjectDetailsData(projectName) {
-    try {
-        const docs = await fetchDocs(query(
-            collection(db, COLLECTIONS.PROJECT_DETAILS),
-            where("name", "==", projectName)
-        ));
-        return docs[0];
-    } catch (err) {
-        console.error("[getProjectDetailsData]", err);
-        return false;
-    }
-}
-
-/**
- * @typedef {{ id: string, companyName: string, displayName: string, timeline?: string, jobType?: string, order: number }} Experience
- * @returns {Promise<Experience[] | false>}
- */
-export async function getExperienceData() {
-    try {
-        return await fetchDocs(query(collection(db, COLLECTIONS.EXPERIENCE), orderBy("order", "desc")));
-    } catch (err) {
-        console.error("[getExperienceData]", err);
-        return false;
-    }
-}
-
-/**
- * @typedef {{ id: string, companyName: string, displayName: string, position: string, timeline?: string, jobType?: string, address?: string, techStack?: string[], description?: string, primaryResponsibility?: string[], mentionableAchievement?: string[], projects?: Record<string,string>, companies?: Record<string,string> }} ExperienceDetails
- * @param {string} companyName
- * @returns {Promise<ExperienceDetails | undefined | false>}
- */
-export async function getExperienceDetailsData(companyName) {
-    try {
-        const docs = await fetchDocs(query(
-            collection(db, COLLECTIONS.EXPERIENCE_DETAILS),
-            where("companyName", "==", companyName)
-        ));
-        return docs[0];
-    } catch (err) {
-        console.error("[getExperienceDetailsData]", err);
-        return false;
-    }
-}
 
 /**
  * @typedef {{ id: string, title: string, tags: string[], publishDate: Date, readTime?: number, link?: string }} Blog

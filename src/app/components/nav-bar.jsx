@@ -19,6 +19,7 @@ const NAV_LINKS = [
     { href: ROUTING_CONSTANTS.BLOGS, label: "Blogs" },
     { href: ROUTING_CONSTANTS.SKILLS, label: "Skills" },
     { href: ROUTING_CONSTANTS.EDUCATION, label: "Education" },
+    { href: ROUTING_CONSTANTS.CONTACT, label: "Contact" },
 ];
 
 // ─── Hamburger Button ────────────────────────────────────────────────────────
@@ -156,7 +157,7 @@ export default function Navbar() {
                 id="mobile-menu"
                 role="menu"
                 className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-96 border-t border-gray-800" : "max-h-0"
+                    isOpen ? "max-h-[32rem] border-t border-gray-800" : "max-h-0"
                 }`}
             >
                 <div className="flex flex-col px-6 py-2">

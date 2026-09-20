@@ -1,5 +1,7 @@
 import { ROUTING_CONSTANTS } from "@/app/constants/routing-constants";
 import { SITE_URL } from "@/app/constants/site-constants";
+import { EXPERIENCES } from "@/app/data/experience-data";
+import { PROJECTS } from "@/app/data/projects-data";
 
 export default function sitemap() {
     return [
@@ -11,5 +13,18 @@ export default function sitemap() {
         { url: `${SITE_URL}${ROUTING_CONSTANTS.SKILLS}`,       lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
         { url: `${SITE_URL}${ROUTING_CONSTANTS.EDUCATION}`,    lastModified: new Date(), changeFrequency: "yearly",  priority: 0.5 },
         { url: `${SITE_URL}${ROUTING_CONSTANTS.CONTACT}`,      lastModified: new Date(), changeFrequency: "yearly",  priority: 0.4 },
+
+        ...EXPERIENCES.map((e) => ({
+            url: `${SITE_URL}${ROUTING_CONSTANTS.EXPERIENCE}/${e.companyName}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        })),
+        ...PROJECTS.map((p) => ({
+            url: `${SITE_URL}${ROUTING_CONSTANTS.PROJECTS}/${p.name}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        })),
     ];
 }
